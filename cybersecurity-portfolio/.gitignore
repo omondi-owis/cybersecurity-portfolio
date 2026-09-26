@@ -1,0 +1,41 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Next.js
+.next/
+out/
+build/
+dist/
+
+# Env & secrets — NEVER commit real values
+.env
+.env*.local
+.env.development
+.env.production
+*.pem
+*.key
+*.p12
+*.pfx
+credentials*.json
+secrets/
+
+# Misc
+.DS_Store
+*.log
+coverage/
+.nyc_output/
+.vitest/
+.turbo/
+
+# Editor
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.swp
+*.swo
+
+# OS
+Thumbs.db
+tsconfig.tsbuildinfo

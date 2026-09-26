@@ -1,0 +1,17 @@
+{
+  "name": "Omondi Raphael Owino — Cybersecurity & Network Security Engineer",
+  "short_name": "Raphael Portfolio",
+  "description": "Cybersecurity engineering portfolio: projects, security lab, and technical writing.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#05080d",
+  "theme_color": "#05080d",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "name": "raphael-cybersecurity-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Cybersecurity engineering portfolio focused on network defense, SOC operations, Linux security, Python automation, secure infrastructure, and security monitoring.",
+  "author": "Omondi Raphael Owino",
+  "license": "UNLICENSED",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start -H 0.0.0.0 -p 3000",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "audit": "npm audit --audit-level=moderate",
+    "secret-scan": "bash ./scripts/secret-scan.sh"
+  },
+  "dependencies": {
+    "next": "^15.5.26",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.12",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "typescript": "^5.4.5",
+    "vitest": "^4.1.11"
+  },
+  "engines": {
+    "node": ">=18.17.0"
+  },
+  "overrides": {
+    "postcss": "^8.5.28"
+  }
+}
