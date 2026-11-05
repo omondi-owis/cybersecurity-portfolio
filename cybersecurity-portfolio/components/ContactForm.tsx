@@ -62,7 +62,7 @@ export default function ContactForm({ directEmail }: { directEmail: string }) {
         return;
       }
       setStatus('sent');
-      setServerMsg('Message received. Thank you — I read every message and reply to serious inquiries.');
+      setServerMsg('Message received. VYRA will review your enquiry and respond if the requested scope is a fit.');
       setName(''); setEmail(''); setSubject(''); setMessage('');
     } catch {
       setStatus('error');
