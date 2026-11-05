@@ -17,7 +17,7 @@ export const site = {
   name: env('NEXT_PUBLIC_OWNER_NAME') || 'Omondi Raphael Owino',
   firstName: 'Raphael',
   title: env('NEXT_PUBLIC_OWNER_TITLE') || 'Cybersecurity & Network Security Engineer',
-  siteUrl: env('NEXT_PUBLIC_SITE_URL') || 'https://example.com',
+  siteUrl: env('NEXT_PUBLIC_SITE_URL') || 'https://cybersecurity-portfolio-zp1e.vercel.app',
   tagline: 'Building secure systems.',
   subTagline:
     'Learning through real infrastructure, security engineering and experimentation.',
