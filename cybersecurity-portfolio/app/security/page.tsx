@@ -19,7 +19,7 @@ const layers = [
   {
     n: 'Layer 2 — Application',
     title: 'Application',
-    items: ['Strict CSP: self-only scripts, no inline JS', 'Secure headers on every route', 'Validated rendering — React escaping + schema checks'],
+    items: ['CSP: self-hosted scripts; inline scripts currently allowed', 'Secure headers on every route', 'Validated rendering — React escaping + schema checks'],
   },
   {
     n: 'Layer 3 — API',
@@ -140,7 +140,7 @@ export default function SecurityPage() {
             <h2 className="h2" id="headers-h">Headers &amp; hardening specifics</h2>
             <div className="prose">
               <ul>
-                <li><strong>CSP:</strong> default-src self, self-only scripts, frame-ancestors none, upgrade-insecure-requests. Zero inline scripts site-wide.</li>
+                <li><strong>CSP:</strong> default-src self, script-src self plus unsafe-inline, frame-ancestors none, upgrade-insecure-requests. Inline scripts are currently allowed; a nonce/hash-based policy is a future hardening step.</li>
                 <li><strong>HSTS:</strong> long max-age with subdomains; preload-ready for the production domain.</li>
                 <li><strong>Framing:</strong> X-Frame-Options DENY plus CSP frame-ancestors — no clickjacking host.</li>
                 <li><strong>Contact API:</strong> JSON-only, 10 KB cap, Zod validation, honeypot, 5/hour/IP rate limit with Retry-After.</li>
