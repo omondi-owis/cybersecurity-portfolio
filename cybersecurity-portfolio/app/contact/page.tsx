@@ -45,8 +45,9 @@ export default function ContactPage() {
               </div>
             ) : (
               <div className="note-box">
-                <strong>Direct email is being set up.</strong> The contact form works
-                regardless — validated, rate-limited, and spam-filtered.
+                <strong>Direct email is being set up.</strong> The form validates and filters
+                submissions, but delivery requires a configured email provider.
+                If unavailable, please use a listed direct channel.
               </div>
             )}
             <div className="side-card" style={{ marginTop: '1rem' }}>
