@@ -85,7 +85,7 @@ export default async function ProjectPage({ params }: Props) {
             <h2 id="problem">The problem</h2>
             <p>{p.problem}</p>
 
-            <h2 id="motivation">Why I built it</h2>
+            <h2 id="motivation">Why it exists</h2>
             <p>{p.motivation}</p>
 
             <h2 id="architecture">Architecture</h2>
