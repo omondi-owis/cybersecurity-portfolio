@@ -37,6 +37,7 @@ export default function ContactPage() {
           </div>
           <div>
             <h2 className="h2" style={{ fontSize: '1.3rem' }}>Send an enquiry</h2>
+            <p className="form-note">If sending is temporarily unavailable, keep your message and retry when the form is available.</p>
             <div style={{ marginTop: '1rem' }}><ContactForm directEmail="" /></div>
           </div>
         </div>
