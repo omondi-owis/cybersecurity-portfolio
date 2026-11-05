@@ -13,6 +13,7 @@ describe('security and contact copy',()=>{
  });
  it('does not promise form delivery without configuration',()=>{
   const page=fs.readFileSync('app/contact/page.tsx','utf8');
-  expect(page).not.toContain('regardless');expect(page).toContain('delivery requires a configured email provider');
+  expect(page).not.toContain('regardless');expect(page).not.toContain('Direct email is being set up');
+   expect(page).toContain('If sending is temporarily unavailable');expect(page).toContain('keep your message');
  });
 });
