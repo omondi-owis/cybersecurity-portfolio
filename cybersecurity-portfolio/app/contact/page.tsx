@@ -45,9 +45,9 @@ export default function ContactPage() {
               </div>
             ) : (
               <div className="note-box">
-                <strong>Direct email is being set up.</strong> The form validates and filters
-                submissions, but delivery requires a configured email provider.
-                If unavailable, please use a listed direct channel.
+                <strong>Use the contact form to reach me.</strong> Your email address is used
+                only to reply. If sending is temporarily unavailable, the form will
+                say so and keep your message so you can retry or use a listed direct channel.
               </div>
             )}
             <div className="side-card" style={{ marginTop: '1rem' }}>
