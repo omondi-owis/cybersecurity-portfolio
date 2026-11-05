@@ -171,7 +171,7 @@ export const articles: Article[] = [
     slug: 'siem-tuning-without-blinding',
     title: 'SIEM Tuning Without Blinding Yourself',
     excerpt:
-      'My Wazuh alert volume dropped 78% with zero lost true positives. The method: measure first, suppress with written rationale, re-validate monthly.',
+      'A practical approach to Wazuh tuning: measure first, document each suppression, and re-test detections before calling a change successful.',
     category: 'SIEM',
     tags: ['Wazuh', 'SIEM', 'Detection engineering'],
     date: '2026-04-09',
@@ -212,7 +212,7 @@ export const articles: Article[] = [
         heading: 'Prove it still fires',
         paragraphs: [
           'Tuning decays: systems change, log formats drift, rules rot. Once a month I re-trigger each tuned rule safely — create the test condition, confirm the alert, clean up — and log the result. A rule that fails re-validation is a finding, not a mystery.',
-          'Results after two tuning cycles: 78% less volume, every true-positive test still detected, and a journal that explains every suppression to future-me.',
+          'A defensible result needs before/after alert counts over comparable time windows, the exact rule changes, and recorded detection re-tests. No numerical reduction or detection-coverage claim is made here until that evidence is published.',
         ],
       },
     ],
