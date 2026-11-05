@@ -18,9 +18,9 @@ export default function KnowledgePage() {
         <p className="eyebrow">Technical writing</p>
         <h1>Notes worth reading twice.</h1>
         <p className="lede">
-          Long-form write-ups from the lab and the codebase. Search by topic or
-          filter by category — every article shows its reading time and date so
-          you know what you&apos;re getting into.
+          Practical guides to defensive security, Linux, networking and secure
+          development. These explain methods and tradeoffs; completed project
+          results belong in the case studies. Search by topic or filter by category.
         </p>
       </div>
       <section aria-label="Articles">
