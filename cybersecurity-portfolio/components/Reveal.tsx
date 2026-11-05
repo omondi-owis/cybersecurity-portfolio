@@ -1,34 +1,43 @@
 'use client';
 
 import { useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 
-/**
- * Progressive-enhancement scroll reveal.
- * Content is visible without JS (CSS only hides when .reveal is present
- * AND motion is allowed — and IO adds .visible). Respects reduced motion.
- */
+/** Keep content visible by default; enhance new cards with the existing motion. */
 export default function Reveal() {
+  const pathname = usePathname();
   useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    const els = document.querySelectorAll('.reveal');
-    if (!('IntersectionObserver' in window)) {
-      els.forEach((el) => el.classList.add('visible'));
-      return;
-    }
-    const io = new IntersectionObserver(
-      (entries) => {
-        for (const e of entries) {
-          if (e.isIntersecting) {
-            e.target.classList.add('visible');
-            io.unobserve(e.target);
-          }
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
+    const prepared = new Set<Element>();
+    const reveal = (el: Element) => {
+      el.classList.add('visible');
+      el.classList.remove('reveal-pending');
+    };
+    const io = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          reveal(entry.target);
+          io.unobserve(entry.target);
         }
-      },
-      { rootMargin: '0px 0px -8% 0px', threshold: 0.08 }
-    );
-    els.forEach((el) => io.observe(el));
-    return () => io.disconnect();
-  }, []);
-
+      }
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+    const prepare = () => {
+      document.querySelectorAll('.reveal:not(.visible)').forEach((el) => {
+        if (prepared.has(el)) return;
+        prepared.add(el);
+        el.classList.add('reveal-pending');
+        io.observe(el);
+      });
+    };
+    prepare();
+    // Filters and client-side navigation can insert cards after the initial effect.
+    const mutations = new MutationObserver(prepare);
+    mutations.observe(document.body, { childList: true, subtree: true });
+    return () => {
+      mutations.disconnect();
+      io.disconnect();
+      prepared.forEach(reveal);
+    };
+  }, [pathname]);
   return null;
 }

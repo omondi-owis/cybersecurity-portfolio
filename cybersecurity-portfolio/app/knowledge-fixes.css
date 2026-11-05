@@ -1,0 +1,5 @@
+/* Progressive enhancement: preserve motion, never require it for content. */
+.prose { min-width: 0; }
+@media (prefers-reduced-motion: no-preference) {
+  .reveal:not(.reveal-pending) { opacity: 1; transform: none; }
+}
