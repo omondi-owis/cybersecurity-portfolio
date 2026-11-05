@@ -68,8 +68,7 @@ const nextConfig = {
   },
 
   env: {
-    NEXT_PUBLIC_SITE_NAME:
-      'Omondi Raphael Owino — Cybersecurity & Network Security Engineer',
+    NEXT_PUBLIC_SITE_NAME: 'VYRA — Cybersecurity Services',
   },
 };
 
