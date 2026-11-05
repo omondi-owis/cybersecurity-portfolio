@@ -129,14 +129,14 @@ export const labs: Lab[] = [
       'Tuning journal: rule, change, rationale, date.',
     ],
     observations: [
-      'Three rules produced 82% of week-one volume (FIM noise + scan self-traffic).',
+      'FIM noise and authorized scan traffic are useful starting points for investigating high-volume rules; publish per-rule counts before stating their share of total volume.',
       'My own authorized scans looked identical to hostile recon in raw alerts.',
       'Severity defaults needed lab-context adjustment, not blind acceptance.',
     ],
     analysis:
       'Default SIEM content is a starting point, not a finished detection posture. Tuning is risk work: each suppression must argue why the signal is safe to quiet in this environment — otherwise tuning becomes blinding.',
     findings: [
-      'Volume reduced 78% with zero loss of true-positive test detections.',
+      'Measured alert reduction and detection re-test results are pending publication of the supporting evidence.',
       'Exercise time-windows let me label self-generated recon vs. unknown activity.',
     ],
     mitigation: [
