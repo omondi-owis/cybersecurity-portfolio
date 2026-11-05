@@ -17,12 +17,12 @@ export default function LabPage() {
       <div className="container page-head">
         <p className="breadcrumb"><Link href="/">Home</Link> / Security Lab</p>
         <p className="eyebrow">Laboratory journal</p>
-        <h1>Where defensive intuition is built.</h1>
+        <h1>Controlled defensive validation.</h1>
         <p className="lede">
           Kali for authorized testing, Ubuntu Server as the defended target, Wazuh
           SIEM watching everything. Every entry follows the same structure —
           objective, environment, method, evidence, analysis, findings, mitigation,
-          lessons — because the journal is the lab&apos;s real output.
+          lessons — to preserve a reviewable technical record.
         </p>
       </div>
 
