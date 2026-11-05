@@ -122,9 +122,12 @@ export async function POST(req: Request) {
       );
     }
   } else {
-    // No delivery backend configured — the submission validated + passed
-    // anti-abuse. Owner wires RESEND_API_KEY later; see DEPLOYMENT.md.
-    console.info(JSON.stringify({ evt: 'contact.queued_no_backend', id }));
+    // Do not claim receipt when no delivery or durable queue exists.
+    console.warn(JSON.stringify({ evt: 'contact.unavailable_no_backend', id }));
+    return NextResponse.json(
+      { ok: false, error: 'Messaging is temporarily unavailable. Please use a listed contact channel.' },
+      { status: 503, headers: { 'x-request-id': id } }
+    );
   }
 
   return NextResponse.json({ ok: true }, { headers: { 'x-request-id': id } });
