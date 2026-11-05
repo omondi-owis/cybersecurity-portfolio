@@ -15,12 +15,12 @@ export default function ProjectsPage() {
     <>
       <div className="container page-head">
         <p className="breadcrumb"><Link href="/">Home</Link> / Projects</p>
-        <p className="eyebrow">What I actually build</p>
-        <h1>Projects with receipts.</h1>
+        <p className="eyebrow">Technical case studies</p>
+        <h1>Projects with evidence.</h1>
         <p className="lede">
-          Every project is a full case study — problem, architecture, security
-          decisions, failures, and lessons. Statuses are honest: things in
-          development are labeled as such, experiments are labeled as experiments.
+          Each project is a technical case study covering the problem, architecture, security
+          decisions, constraints, and outcomes. Status labels remain explicit: systems
+          in development, research, academic work, and lab references are identified as such.
         </p>
       </div>
       <section aria-label="All projects">
@@ -33,7 +33,7 @@ export default function ProjectsPage() {
           <div className="note-box">
             <strong>Repository links appear as they&apos;re published.</strong> Each
             case study documents the real system; GitHub links are added only for
-            repositories the owner has actually made public — never invented.
+            repositories that have been published — never invented.
           </div>
         </div>
       </section>
