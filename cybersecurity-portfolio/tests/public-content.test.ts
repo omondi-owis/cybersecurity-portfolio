@@ -2,15 +2,14 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import fs from 'node:fs';
 afterEach(() => { vi.unstubAllEnvs(); vi.resetModules(); });
 describe('public portfolio content', () => {
-  it('defaults canonical and share URLs to the real deployment', async () => {
-    vi.stubEnv('NEXT_PUBLIC_SITE_URL', ''); vi.resetModules();
+  it('uses hardcoded VYRA public branding and disables public personal links', async () => {
+    vi.stubEnv('NEXT_PUBLIC_OWNER_NAME', 'Legacy Owner'); vi.stubEnv('NEXT_PUBLIC_SITE_URL', 'https://legacy.test'); vi.resetModules();
     const { site } = await import('../content/site');
+    expect(site.name).toBe('VYRA');
     expect(site.siteUrl).toBe('https://cybersecurity-portfolio-zp1e.vercel.app');
-  });
-  it('honours an explicit public site origin', async () => {
-    vi.stubEnv('NEXT_PUBLIC_SITE_URL', 'https://portfolio.test'); vi.resetModules();
-    const { site } = await import('../content/site');
-    expect(site.siteUrl).toBe('https://portfolio.test');
+    expect(site.email).toBe('');
+    expect(site.github).toBe('');
+    expect(site.cvUrl).toBe('');
   });
   it('does not publish unsupported tuning statistics', () => {
     for (const path of ['content/articles.ts', 'content/labs.ts']) {
