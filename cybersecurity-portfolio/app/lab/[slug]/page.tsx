@@ -50,7 +50,7 @@ export default async function LabEntryPage({ params }: Props) {
         <h1>{lab.title}</h1>
         <div className="meta" style={{ marginTop: '0.75rem' }}>
           <span>{formatDate(lab.date)}</span>
-          <span>{lab.minutes} min read</span>
+          <span>{lab.minutes} min reference</span>
         </div>
       </div>
 
@@ -92,7 +92,7 @@ export default async function LabEntryPage({ params }: Props) {
                 <dt>Date</dt><dd>{formatDate(lab.date)}</dd>
                 <dt>Category</dt><dd>{lab.category}</dd>
                 <dt>Difficulty</dt><dd>{lab.difficulty}</dd>
-                <dt>Reading time</dt><dd>{lab.minutes} min</dd>
+                <dt>Reference length</dt><dd>{lab.minutes} min</dd>
               </dl>
             </div>
             <div className="side-card">
@@ -125,7 +125,7 @@ export default async function LabEntryPage({ params }: Props) {
 
       <section className="section-alt" aria-label="More lab entries">
         <div className="container">
-          <h2 className="h2">Keep experimenting</h2>
+          <h2 className="h2">Explore more entries</h2>
           <div className="card-grid" style={{ marginTop: '1.5rem' }}>
             {others.map((o) => (
               <article key={o.slug} className="card">
