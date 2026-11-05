@@ -1,132 +1,70 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import Timeline from '@/components/Timeline';
 import CurrentFocus from '@/components/CurrentFocus';
-import { site } from '@/content/site';
+import Timeline from '@/components/Timeline';
 
 export const metadata: Metadata = {
-  title: 'About',
-  description:
-    'The engineering journey of Omondi Raphael Owino: software development to networking to cybersecurity, SOC operations, and security engineering.',
+  title: 'About VYRA',
+  description: 'About VYRA: a cybersecurity services practice focused on authorized, scoped security work and clear technical documentation.',
   alternates: { canonical: '/about' },
 };
 
-const interests = [
-  'Network security',
-  'Cybersecurity',
-  'Linux',
-  'Python',
-  'SOC operations',
-  'SIEM',
-  'Defensive security',
-  'Security monitoring',
-  'Secure infrastructure',
-  'Automation',
-  'Secure software development',
-];
+const areas = ['SIEM / Wazuh', 'Linux hardening', 'Network security', 'Log analysis', 'Python automation', 'Incident documentation'];
 
 export default function AboutPage() {
   return (
     <>
       <div className="container page-head">
         <p className="breadcrumb"><Link href="/">Home</Link> / About</p>
-        <p className="eyebrow">Who is {site.firstName}?</p>
-        <h1>An engineer learning security by building defended systems.</h1>
-        <p className="lede">
-          I&apos;m {site.name}, a {site.title.toLowerCase()} developing practical
-          expertise through software engineering, security labs, infrastructure,
-          monitoring, automation, and defensive security. This page is the honest
-          version of my story — what I&apos;ve built, what I&apos;m studying, and
-          where I&apos;m headed.
-        </p>
+        <p className="eyebrow">ABOUT VYRA</p>
+        <h1>Cybersecurity work with a clear scope and a practical output.</h1>
+        <p className="lede">VYRA is a service-led cybersecurity practice for focused work on security monitoring, system configuration, network exposure, log automation and incident documentation. The emphasis is on authorized access, defined boundaries and useful handover material.</p>
       </div>
 
-      <section aria-labelledby="story-h">
+      <section aria-labelledby="approach-h">
         <div className="container two-col">
           <div>
-            <h2 className="h2" id="story-h">Software taught me to build. Security taught me to doubt.</h2>
+            <h2 className="h2" id="approach-h">A straightforward engagement approach</h2>
             <div className="prose">
-              <p>
-                I started as a software developer — JavaScript, Node.js, React,
-                MongoDB — shipping full-stack applications including a university
-                capstone with realtime logistics. Building software taught me how
-                systems <strong>work</strong>.
-              </p>
-              <p>
-                Networking came next: packets, routing, DNS, firewalls. I captured
-                traffic in Wireshark and watched abstractions dissolve into bytes.
-                Networking taught me how systems <strong>connect</strong>.
-              </p>
-              <p>
-                Then the question that changed everything: <strong>how do they fail?</strong>{' '}
-                That pulled me into cybersecurity — first hardening my own Ubuntu
-                hosts, then deploying a Wazuh SIEM, then practicing the full SOC loop:
-                telemetry, detection, triage, response, improvement.
-              </p>
-              <p>
-                Today I split my time between <strong>MlinziOps</strong> (operating
-                hardened infrastructure), <strong>SecureOps</strong> (detection
-                engineering and defensive automation), and the <strong>Security Lab</strong>{' '}
-                where every exercise ends in documented evidence. The trajectory runs
-                toward security engineering and, eventually, security architecture.
-              </p>
+              <p>Security work is most useful when everyone agrees what is being reviewed, why it matters and what actions are permitted. VYRA starts there: establish scope, understand the environment and document what is observed.</p>
+              <p>The work is designed around practical deliverables: configuration observations, prioritized recommendations, tuning notes, automation utilities or evidence-ready incident documentation.</p>
+              <p>VYRA does not invent credentials, client stories, certifications or outcomes. It does not claim a 24/7 SOC, managed detection service, company registration or guaranteed security results.</p>
             </div>
             <div className="btn-row">
-              <Link className="btn btn-primary" href="/projects">See the evidence</Link>
-              <Link className="btn btn-ghost" href="/lab">Read the lab journal</Link>
+              <Link className="btn btn-primary" href="/services">Explore services</Link>
+              <Link className="btn btn-ghost" href="/contact">Discuss a scope</Link>
             </div>
           </div>
           <div>
             <CurrentFocus />
             <div className="side-card" style={{ marginTop: '1rem' }}>
-              <h2>Areas of interest</h2>
-              <div className="tag-row">
-                {interests.map((i) => (
-                  <span key={i} className="tag">{i}</span>
-                ))}
-              </div>
+              <h2>Service areas</h2>
+              <div className="tag-row">{areas.map((area) => <span key={area} className="tag">{area}</span>)}</div>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="section-alt" aria-labelledby="timeline-h">
+      <section className="section-alt" aria-labelledby="capabilities-h">
         <div className="container">
           <div className="section-head">
-            <p className="eyebrow">The journey</p>
-            <h2 className="h2" id="timeline-h">From code to architecture</h2>
-            <p className="lede">
-              Each phase builds on the last. Nothing here is skipped — the lab work
-              and projects on this site are the receipts for every claim below.
-            </p>
+            <p className="eyebrow">Capability map</p>
+            <h2 className="h2" id="capabilities-h">Technical areas VYRA draws on</h2>
+            <p className="lede">These areas describe the technical foundations relevant to VYRA&apos;s services, not a record of client engagements or a promise that every capability fits every request.</p>
           </div>
           <Timeline />
         </div>
       </section>
 
-      <section aria-labelledby="honest-h">
+      <section aria-labelledby="boundaries-h">
         <div className="container container-narrow">
-          <p className="eyebrow">Honest by design</p>
-          <h2 className="h2" id="honest-h">What I won&apos;t claim</h2>
+          <p className="eyebrow">Working boundaries</p>
+          <h2 className="h2" id="boundaries-h">Authorization is not optional.</h2>
           <div className="prose">
-            <p>
-              You won&apos;t find invented employers, fake certifications, fabricated
-              incident stories, or vanity metrics on this site. Where information
-              isn&apos;t ready to publish — a repository being cleaned up, a channel
-              being set up — the link is simply absent rather than faked.
-            </p>
-            <p>
-              What you <em>will</em> find is verifiable work: architectures you can
-              critique, lab notes with methods and evidence, code with security
-              decisions explained, and a disclosure policy that invites scrutiny.
-              I&apos;d rather be judged on a small body of real work than a large
-              body of claims.
-            </p>
+            <p>VYRA works only on systems the requester owns or is explicitly authorized to manage. Any review or testing is limited to the agreed environment and approved activities.</p>
+            <p>Recommendations support decisions; responsibility for production changes, approvals and operational response remains with the system owner unless a different written scope is agreed.</p>
           </div>
-          <div className="btn-row">
-            <Link className="btn btn-ghost" href="/security">How this site is secured →</Link>
-            <Link className="btn btn-ghost" href="/contact">Contact me →</Link>
-          </div>
+          <div className="btn-row"><Link className="btn btn-ghost" href="/security">How this site is secured →</Link><Link className="btn btn-ghost" href="/contact">Contact VYRA →</Link></div>
         </div>
       </section>
     </>

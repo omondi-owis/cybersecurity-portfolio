@@ -5,7 +5,7 @@ import { site } from '@/content/site';
 export const metadata: Metadata = {
   title: 'Security Disclosure',
   description:
-    'Responsible vulnerability disclosure policy: how to report security issues in this portfolio, scope, and what to expect.',
+    'Responsible vulnerability disclosure policy for the VYRA website, including scope and reporting expectations.',
   alternates: { canonical: '/disclosure' },
 };
 

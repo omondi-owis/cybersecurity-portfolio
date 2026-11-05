@@ -16,7 +16,7 @@ values**; empty hides the feature:
 
 | Variable | Required | Notes |
 |---|---|---|
-| `NEXT_PUBLIC_SITE_URL` | Yes | Canonical origin, e.g. `https://raphael.example.com`. No localhost in prod. |
+| `NEXT_PUBLIC_SITE_URL` | Yes | Canonical origin, e.g. `https://vyra.example.com`. No localhost in prod. |
 | `NEXT_PUBLIC_OWNER_NAME` / `TITLE` | No | Defaults are already correct. |
 | `CONTACT_EMAIL` | No | Enables `mailto:` links. Empty = form-only. |
 | `NEXT_PUBLIC_GITHUB_URL` etc. | No | Empty links are hidden, never dead. |

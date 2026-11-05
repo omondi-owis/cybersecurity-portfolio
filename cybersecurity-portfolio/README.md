@@ -1,40 +1,37 @@
-# Omondi Raphael Owino — Cybersecurity Portfolio
+# VYRA — Cybersecurity Case Studies
 
-A production-quality cybersecurity engineering portfolio: project case studies,
-a security-lab journal, a technical knowledge base, a public security case study
-of the site itself, and a hardened contact system.
+VYRA is a cybersecurity case-study site covering security operations infrastructure,
+detection engineering, reference-lab documentation, technical research, and secure
+application design. Project and lab status labels are explicit; reference exercises
+remain reference exercises and are not presented as client delivery.
 
 **Stack:** Next.js 15 (App Router, TypeScript) · React 19 · Zod · hand-built CSS
 design system · Vitest · GitHub Actions (typecheck, tests, audit, secret scan, build, CodeQL).
-
-> Positioning: **Cybersecurity & Network Security Engineer** — practical
-> infrastructure, network security, monitoring, automation, defensive
-> experimentation. Honest statuses everywhere; nothing invented.
 
 ---
 
 ## Quick start
 
 ```bash
-cp .env.example .env   # fill ONLY with real values; empty hides the link
+cp .env.example .env   # fill only with real values; empty hides the link
 npm install
 npm run dev            # http://localhost:3000
 ```
 
-| Command              | Purpose                                              |
-|----------------------|------------------------------------------------------|
-| `npm run dev`        | Local development                                    |
-| `npm run build`      | Production build (must pass before pushing)          |
-| `npm start`          | Serve the production build                           |
-| `npm run typecheck`  | `tsc --noEmit`                                       |
-| `npm run test`       | Vitest unit tests                                    |
-| `npm run audit`      | `npm audit` (moderate+)                              |
-| `npm run secret-scan`| Local secret / private-infra scan (also runs in CI)  |
+| Command | Purpose |
+|---|---|
+| `npm run dev` | Local development |
+| `npm run build` | Production build |
+| `npm start` | Serve the production build |
+| `npm run typecheck` | `tsc --noEmit` |
+| `npm run test` | Vitest unit tests |
+| `npm run audit` | `npm audit` (moderate+) |
+| `npm run secret-scan` | Local secret / private-infrastructure scan |
 
-## Owner configuration
+## Configuration
 
-Single source of truth: **`content/site.ts`** reads environment variables —
-no personal URL is hardcoded. Configure via `.env` (see `.env.example`):
+`content/site.ts` reads public site identity and links from environment variables.
+Configure `.env` using `.env.example`:
 
 ```
 NEXT_PUBLIC_OWNER_NAME / NEXT_PUBLIC_OWNER_TITLE / NEXT_PUBLIC_SITE_URL
@@ -43,68 +40,52 @@ NEXT_PUBLIC_GITHUB_URL / LINKEDIN / INSTAGRAM / YOUTUBE / TIKTOK / WHATSAPP
 NEXT_PUBLIC_CV_URL
 ```
 
-**Rules:** never invent values; leave empty to hide gracefully. Server secrets
-(`RESEND_API_KEY`, `GITHUB_TOKEN`, `CONTACT_TO_EMAIL`) never carry the
+Never invent values; leave optional values empty to hide related UI. Server secrets
+(`RESEND_API_KEY`, `GITHUB_TOKEN`, `CONTACT_TO_EMAIL`) never use the
 `NEXT_PUBLIC_` prefix and never reach the browser.
 
-Per-project repo/demo/docs links live in `content/projects.ts` as empty strings
-until the owner publishes each repository.
+Repository, demo, and documentation links in `content/projects.ts` remain empty
+until a corresponding public destination is available.
 
-## Content system (data-driven)
+## Content model
 
-```
-content/
-├── site.ts       # identity + links (env-backed)
-├── projects.ts   # case studies (add an object = new page)
-├── labs.ts       # lab journal entries
-├── articles.ts   # knowledge-base articles (sections power the TOC)
-└── timeline.ts   # engineering journey milestones
-```
+- `content/projects.ts` — technical case studies, including explicitly labeled
+  academic and research work.
+- `content/labs.ts` — isolated-lab reference entries with methods, evidence,
+  findings, and mitigations.
+- `content/articles.ts` — security knowledge-base articles.
+- `content/site.ts` and `content/timeline.ts` — site configuration and timeline data.
 
-Adding a project, lab, or article requires **zero app changes** — routes use
-`generateStaticParams()` over these files.
+Routes use `generateStaticParams()`, so adding a content object creates its route
+without app-route changes.
 
-## Security highlights
+## Security controls
 
-- Strict CSP (`script-src 'self'`, zero inline scripts), HSTS, framing denial,
-  hardened `Permissions-Policy` — see `next.config.js`.
-- Edge middleware: scanner-path blocking, API size caps, request IDs.
-- Contact API: Zod validation, honeypot (fake-success), 5/hour/IP rate limit,
-  metadata-only audit logs, optional Resend delivery via server secret.
-- CI: typecheck → tests → `npm audit` → secret scan → CodeQL → prod build.
-- `npm audit` is **zero-vulnerability** at release; a `postcss` override in
-  `package.json` pins the transitive copy (via Next.js) to the patched line.
-- Public disclosure policy at `/disclosure`; full model in `SECURITY.md` and `/security`.
-
-**CSP & theme note:** the theme toggle applies from `localStorage` on mount
-(dark default) precisely so no inline `<script>` weakens the CSP. First paint
-for light-mode users may flash dark once — an accepted, documented tradeoff.
-
-**Structured data note:** inline JSON-LD was intentionally omitted to preserve
-`script-src 'self'`. If rich results matter later, add it with a CSP hash
-(`'sha256-…'`) rather than `'unsafe-inline'`.
+- Strict CSP, HSTS, framing denial, and hardened `Permissions-Policy` in `next.config.js`.
+- Middleware protection for scanner paths, API size caps, and request IDs.
+- Contact API validation, honeypot handling, per-IP rate limiting, metadata-only audit logs, and optional Resend delivery.
+- CI checks for type safety, tests, dependency audit, secret scanning, CodeQL, and production build.
+- Public disclosure policy at `/disclosure`; security model in `SECURITY.md` and `/security`.
 
 ## Project structure
 
 ```
-app/            # routes (about, projects/[slug], lab/[slug], knowledge/[slug],
-                # security, contact, privacy, disclosure, resume, api/*)
-components/     # header, footer, hero viz, SOC pipeline, cards, forms, diagrams
-content/        # site config, projects, labs, articles, timeline
-lib/            # validation, rate-limit, utils, github enrichment
-public/         # favicon, OG image, PWA manifest
-tests/          # vitest unit tests
+app/            # routes and API handlers
+components/     # interface components and diagrams
+content/        # case studies, lab entries, articles, site configuration
+lib/            # validation, rate limiting, utilities, GitHub enrichment
+public/         # brand assets and PWA manifest
+tests/          # Vitest tests
 .github/        # CI, CodeQL, Dependabot
 scripts/        # secret-scan.sh
 ```
 
 ## Deployment
 
-See `DEPLOYMENT.md` (Cloudflare + any Next.js host, env checklist, domain
-readiness). See `ARCHITECTURE.md` for system design and `SECURITY.md` for the
-threat model, review checklist, and pre-push safety steps.
+See `DEPLOYMENT.md` for environment and deployment guidance, `ARCHITECTURE.md`
+for system design, and `SECURITY.md` for the threat model and review checklist.
 
 ## License
 
-All rights reserved — portfolio source of Omondi Raphael Owino. If reusing
-patterns from this repo, write your own content; do not clone the identity.
+All rights reserved. Do not reuse VYRA identity or case-study content without
+permission.
