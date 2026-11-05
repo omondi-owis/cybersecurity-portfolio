@@ -2,13 +2,19 @@ import Link from 'next/link';
 import HeroNetwork from '@/components/HeroNetwork';
 import SocPipeline from '@/components/SocPipeline';
 import { ProjectCard, ArticleCard } from '@/components/Cards';
-import Timeline from '@/components/Timeline';
 import Philosophy from '@/components/Philosophy';
 import CurrentFocus from '@/components/CurrentFocus';
-import SocialLinks from '@/components/SocialLinks';
 import { featuredProjects } from '@/content/projects';
 import { articles } from '@/content/articles';
 import { site } from '@/content/site';
+
+const services = [
+  ['SIEM & Wazuh', 'Scoped setup, onboarding support, alert-rule tuning and documentation for environments you are authorized to manage.'],
+  ['Linux security review', 'Configuration-focused review of access, patching, SSH, firewall and logging controls with practical findings.'],
+  ['Network security review', 'Authorized review of network exposure, segmentation, DNS, firewall posture and actionable next steps.'],
+  ['Python log automation', 'Small, maintainable utilities for parsing, normalizing and reporting on security-relevant logs.'],
+  ['Incident triage support', 'Evidence-led triage support and clear incident notes, timelines and handover documentation.'],
+];
 
 export default function Home() {
   const featured = featuredProjects();
@@ -16,35 +22,25 @@ export default function Home() {
 
   return (
     <>
-      {/* ================= HERO ================= */}
       <div className="hero">
         <div className="container hero-grid">
           <div>
-            <span className="hero-kicker">CYBERSECURITY / NETWORK SECURITY</span>
+            <span className="hero-kicker">CYBERSECURITY SERVICES</span>
             <h1>
               {site.name}
               <br />
-              <span className="thin">Building secure systems.</span>
+              <span className="thin">Practical security, clearly scoped.</span>
             </h1>
             <p className="hero-sub">
-              <strong>Learning through real infrastructure, security engineering and
-              experimentation.</strong>{' '}
-              I build defended systems, monitor them with a SIEM, test them in an
-              isolated lab — and document everything so each experiment compounds.
+              <strong>Stronger systems. Clearer visibility. Actionable security.</strong>{' '}
+              VYRA helps businesses strengthen Linux systems, improve security monitoring and automate log analysis, with practical findings and clear documentation.
             </p>
             <div className="btn-row">
-              <Link className="btn btn-primary" href="/projects">Explore projects</Link>
-              <Link className="btn btn-ghost" href="/lab">Security Lab</Link>
-              {site.github ? (
-                <a className="btn btn-ghost" href={site.github} target="_blank" rel="noopener noreferrer">
-                  GitHub ↗
-                </a>
-              ) : (
-                <Link className="btn btn-ghost" href="/contact">Contact me</Link>
-              )}
+              <Link className="btn btn-primary" href="/services">View services</Link>
+              <Link className="btn btn-ghost" href="/contact">Discuss a scope</Link>
             </div>
-            <div className="hero-meta" aria-label="Focus areas">
-              {['Network defense', 'SOC / SIEM', 'Linux', 'Python', 'Wazuh', 'Secure infra'].map((c) => (
+            <div className="hero-meta" aria-label="Service areas">
+              {['SIEM / Wazuh', 'Linux security', 'Network review', 'Python automation', 'Incident triage'].map((c) => (
                 <span key={c} className="chip">{c}</span>
               ))}
             </div>
@@ -55,161 +51,107 @@ export default function Home() {
           <div className="diagram reveal" style={{ background: 'rgba(14,21,31,0.6)' }}>
             <HeroNetwork />
             <p className="hero-viz-caption" style={{ marginTop: '0.5rem' }}>
-              Illustrative topology — decorative visualization, not live telemetry or real infrastructure.
+              Illustrative topology — a visual explanation of service areas, not live telemetry or client infrastructure.
             </p>
           </div>
         </div>
       </div>
 
-      {/* ================= SIGNATURE: SOC LOOP ================= */}
-      <section aria-labelledby="soc-h">
+      <section aria-labelledby="services-h">
         <div className="container">
           <div className="section-head reveal">
-            <p className="eyebrow">How I work</p>
-            <h2 className="h2" id="soc-h">The security operations loop</h2>
+            <p className="eyebrow">Services</p>
+            <h2 className="h2" id="services-h">Focused help where it matters</h2>
             <p className="lede">
-              One loop connects everything I build: infrastructure feeds telemetry,
-              telemetry feeds detection, detection feeds analysis, analysis feeds
-              response — and every cycle improves the system. Select a stage to see
-              how it maps to real projects and lab work.
+              Choose focused support for your infrastructure and security operations. Each engagement starts with agreed objectives, authorized access and clear deliverables.
+            </p>
+          </div>
+          <div className="card-grid">
+            {services.map(([title, body]) => (
+              <article className="card reveal" key={title}>
+                <p className="eyebrow">VYRA SERVICE</p>
+                <h3>{title}</h3>
+                <p>{body}</p>
+              </article>
+            ))}
+          </div>
+          <div className="btn-row reveal">
+            <Link className="btn btn-primary" href="/services">Explore service scope →</Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="section-alt" aria-labelledby="process-h">
+        <div className="container">
+          <div className="section-head reveal">
+            <p className="eyebrow">Process</p>
+            <h2 className="h2" id="process-h">A clear security workflow</h2>
+            <p className="lede">
+              Define the authorized scope, understand the environment, review evidence, document findings and agree practical next actions. The operational loop below illustrates that approach.
             </p>
           </div>
           <SocPipeline />
         </div>
       </section>
 
-      {/* ================= PROJECTS ================= */}
-      <section className="section-alt" aria-labelledby="proj-h">
+      <section aria-labelledby="work-h">
         <div className="container">
           <div className="section-head reveal">
-            <p className="eyebrow">Evidence, not claims</p>
-            <h2 className="h2" id="proj-h">Featured projects</h2>
+            <p className="eyebrow">Technical work</p>
+            <h2 className="h2" id="work-h">Methods and implementation notes</h2>
             <p className="lede">
-              Each project is a case study: the problem, the architecture, the security
-              decisions, what broke, and what I learned. No inflated metrics — just
-              systems you can inspect and reasoning you can follow.
+              Public technical material explains the approaches and tooling behind VYRA&apos;s service areas. It is reference material, not a claim of work performed for a client.
             </p>
           </div>
           <div className="card-grid">
-            {featured.map((p) => (
-              <ProjectCard key={p.slug} project={p} />
-            ))}
+            {featured.map((p) => <ProjectCard key={p.slug} project={p} />)}
           </div>
           <div className="btn-row reveal">
-            <Link className="btn btn-ghost" href="/projects">All projects →</Link>
+            <Link className="btn btn-ghost" href="/projects">View technical work →</Link>
           </div>
         </div>
       </section>
 
-      {/* ================= PHILOSOPHY ================= */}
-      <section aria-labelledby="phil-h">
+      <section className="section-alt" aria-labelledby="phil-h">
         <div className="container">
           <div className="section-head reveal">
             <p className="eyebrow">Principles</p>
-            <h2 className="h2" id="phil-h">How I approach security</h2>
-            <p className="lede">
-              Nine steps, applied to every system I touch — from a fresh Ubuntu install
-              to an AI experiment that must never act unsupervised.
-            </p>
+            <h2 className="h2" id="phil-h">How VYRA approaches security work</h2>
+            <p className="lede">A documented, authorization-first process designed to make technical decisions easier to review and act on.</p>
           </div>
           <Philosophy />
         </div>
       </section>
 
-      {/* ================= JOURNEY ================= */}
-      <section className="section-alt" aria-labelledby="journey-h">
-        <div className="container">
-          <div className="two-col">
-            <div>
-              <div className="section-head reveal">
-                <p className="eyebrow">Engineering journey</p>
-                <h2 className="h2" id="journey-h">Software → networks → security</h2>
-                <p className="lede">
-                  I came to security through building: software taught me how systems
-                  work, networking taught me how they connect, and security taught me
-                  how they fail. The trajectory now runs through SOC operations toward
-                  security engineering and architecture.
-                </p>
-              </div>
-              <Timeline limit={4} />
-              <div className="btn-row reveal">
-                <Link className="btn btn-ghost" href="/about">Full story →</Link>
-              </div>
-            </div>
-            <div className="reveal">
-              <div className="side-card" style={{ marginBottom: '1rem' }}>
-                <h2>Why this order matters</h2>
-                <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>
-                  Security advice is cheap; security judgment comes from operating
-                  systems. Because I deploy, break, monitor and fix my own
-                  infrastructure, my controls are grounded in what actually fails —
-                  not in checklists I have never tested.
-                </p>
-              </div>
-              <div className="side-card">
-                <h2>What I am studying now</h2>
-                <div className="tag-row">
-                  {['Detection engineering', 'ATT&CK mapping', 'Secure APIs', 'SIEM tuning', 'Incident writing'].map((t) => (
-                    <span key={t} className="tag">{t}</span>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ================= KNOWLEDGE ================= */}
       <section aria-labelledby="know-h">
         <div className="container">
           <div className="section-head reveal">
             <p className="eyebrow">Knowledge base</p>
-            <h2 className="h2" id="know-h">Writing that shows thinking</h2>
-            <p className="lede">
-              Long-form notes from the lab and the codebase: threat modeling,
-              hardening, SIEM tuning and safe automation. Written to be useful to
-              other learners — and to prove I understand what I claim.
-            </p>
+            <h2 className="h2" id="know-h">Practical security guidance</h2>
+            <p className="lede">Notes on threat modeling, hardening, SIEM tuning and safe automation, written to support better security decisions.</p>
           </div>
           <div className="card-grid">
-            {featuredArticles.map((a) => (
-              <ArticleCard key={a.slug} article={a} />
-            ))}
+            {featuredArticles.map((a) => <ArticleCard key={a.slug} article={a} />)}
           </div>
           <div className="btn-row reveal">
-            <Link className="btn btn-ghost" href="/knowledge">Browse all writing →</Link>
-            <Link className="btn btn-ghost" href="/lab">Lab journal →</Link>
+            <Link className="btn btn-ghost" href="/knowledge">Browse guidance →</Link>
           </div>
         </div>
       </section>
 
-      {/* ================= SECURITY + CONTACT ================= */}
       <section className="section-alt" aria-labelledby="cta-h">
         <div className="container two-col">
           <div className="reveal">
             <p className="eyebrow">Trust</p>
-            <h2 className="h2" id="cta-h">This site is itself a case study</h2>
-            <p className="lede">
-              Strict content security policy, validated inputs, rate-limited APIs,
-              minimal attack surface — and a public disclosure policy. I document
-              how this portfolio is secured because the site should demonstrate the
-              mindset it claims.
-            </p>
-            <div className="btn-row">
-              <Link className="btn btn-ghost" href="/security">How this site is secured →</Link>
-            </div>
+            <h2 className="h2" id="cta-h">Security-minded by design</h2>
+            <p className="lede">This site uses a strict content security policy, validated inputs, rate-limited APIs and a public disclosure policy. Security controls and limitations are documented openly.</p>
+            <div className="btn-row"><Link className="btn btn-ghost" href="/security">How this site is secured →</Link></div>
           </div>
           <div className="reveal">
-            <p className="eyebrow">Let&apos;s connect</p>
-            <h2 className="h2">Start a conversation</h2>
-            <p className="lede" style={{ marginBottom: '1.25rem' }}>
-              Internships, junior SOC and security roles, collaborations, or feedback
-              on the lab work — serious messages get serious replies.
-            </p>
-            <SocialLinks />
-            <div className="btn-row">
-              <Link className="btn btn-primary" href="/contact">Contact me</Link>
-            </div>
+            <p className="eyebrow">Start with scope</p>
+            <h2 className="h2">Discuss the work</h2>
+            <p className="lede" style={{ marginBottom: '1.25rem' }}>Describe the system, objective and authorization you have. VYRA will use that context to determine whether the requested work is an appropriate fit.</p>
+            <div className="btn-row"><Link className="btn btn-primary" href="/contact">Contact VYRA</Link></div>
           </div>
         </div>
       </section>
