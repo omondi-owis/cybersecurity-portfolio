@@ -1,41 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">VYRA cybersecurity</title><desc id="desc">VYRA security operations and defensive engineering</desc>
   <rect width="1200" height="630" fill="#05080d"/>
-  <g stroke="#141e2b" stroke-width="1">
-    <line x1="0" y1="90" x2="1200" y2="90"/>
-    <line x1="0" y1="180" x2="1200" y2="180"/>
-    <line x1="0" y1="270" x2="1200" y2="270"/>
-    <line x1="0" y1="360" x2="1200" y2="360"/>
-    <line x1="0" y1="450" x2="1200" y2="450"/>
-    <line x1="0" y1="540" x2="1200" y2="540"/>
-    <line x1="150" y1="0" x2="150" y2="630"/>
-    <line x1="300" y1="0" x2="300" y2="630"/>
-    <line x1="450" y1="0" x2="450" y2="630"/>
-    <line x1="600" y1="0" x2="600" y2="630"/>
-    <line x1="750" y1="0" x2="750" y2="630"/>
-    <line x1="900" y1="0" x2="900" y2="630"/>
-    <line x1="1050" y1="0" x2="1050" y2="630"/>
-  </g>
-  <circle cx="960" cy="180" r="220" fill="#6ea8fe" opacity="0.06"/>
-  <circle cx="180" cy="520" r="180" fill="#57d9a3" opacity="0.05"/>
-  <text x="100" y="230" fill="#6ea8fe" font-size="30" font-family="monospace" letter-spacing="8">CYBERSECURITY / NETWORK SECURITY</text>
-  <text x="100" y="330" fill="#e8eef5" font-size="80" font-weight="bold" font-family="sans-serif">OMONDI RAPHAEL OWINO</text>
-  <text x="100" y="400" fill="#9aa9bd" font-size="36" font-family="sans-serif">Building secure systems through real infrastructure</text>
-  <text x="100" y="450" fill="#9aa9bd" font-size="36" font-family="sans-serif">and defensive experimentation.</text>
-  <g font-family="monospace" font-size="24" fill="#64748c">
-    <text x="100" y="540">SOC • SIEM • LINUX • PYTHON • WAZUH</text>
-  </g>
-  <circle cx="960" cy="420" r="34" fill="none" stroke="#6ea8fe" stroke-width="4"/>
-  <circle cx="960" cy="420" r="8" fill="#57d9a3"/>
-  <g fill="#57d9a3" opacity="0.8">
-    <circle cx="880" cy="360" r="7"/>
-    <circle cx="1040" cy="360" r="7"/>
-    <circle cx="880" cy="480" r="7"/>
-    <circle cx="1040" cy="480" r="7"/>
-  </g>
-  <g stroke="#6ea8fe" stroke-width="2" opacity="0.5">
-    <line x1="960" y1="420" x2="880" y2="360"/>
-    <line x1="960" y1="420" x2="1040" y2="360"/>
-    <line x1="960" y1="420" x2="880" y2="480"/>
-    <line x1="960" y1="420" x2="1040" y2="480"/>
-  </g>
+  <g stroke="#142238" stroke-width="1"><path d="M0 105H1200M0 210H1200M0 315H1200M0 420H1200M0 525H1200M150 0V630M300 0V630M450 0V630M600 0V630M750 0V630M900 0V630M1050 0V630"/></g>
+  <circle cx="944" cy="218" r="245" fill="#6ea8fe" opacity=".07"/><circle cx="185" cy="535" r="190" fill="#57d9a3" opacity=".06"/>
+  <text x="100" y="205" fill="#57d9a3" font-size="27" font-family="monospace" letter-spacing="7">SECURITY OPERATIONS / DEFENSIVE ENGINEERING</text>
+  <text x="96" y="330" fill="#e8eef5" font-size="118" font-weight="700" font-family="Arial, sans-serif" letter-spacing="12">VYRA</text>
+  <text x="102" y="395" fill="#a9b8cc" font-size="35" font-family="Arial, sans-serif">Technical case studies · reference labs · security research</text>
+  <text x="102" y="505" fill="#71839c" font-size="23" font-family="monospace" letter-spacing="3">SOC  •  SIEM  •  LINUX  •  AUTOMATION  •  HARDENING</text>
+  <g fill="none" stroke="#6ea8fe" stroke-width="4"><circle cx="965" cy="425" r="42"/><path d="M965 355V328M965 522V495M895 425H868M1062 425H1035"/></g><circle cx="965" cy="425" r="10" fill="#57d9a3"/>
 </svg>
