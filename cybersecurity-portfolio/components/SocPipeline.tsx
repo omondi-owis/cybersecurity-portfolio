@@ -15,7 +15,7 @@ const stages = [
     n: '01',
     label: 'Infrastructure',
     title: 'Harden what you run',
-    body: 'Every lab host starts from a verified baseline: key-only SSH, default-deny firewall, unattended security patches. Infrastructure is the first control, not the backdrop.',
+    body: 'Every reference-lab host starts from a verified baseline: key-only SSH, default-deny firewall, unattended security patches. Infrastructure is the first control, not the backdrop.',
     points: ['Ubuntu hardening baseline', 'UFW default-deny policies', 'MlinziOps private access'],
     links: [
       { href: '/projects/mlinziops', label: 'MlinziOps case study' },
@@ -27,7 +27,7 @@ const stages = [
     n: '02',
     label: 'Telemetry',
     title: 'Collect before you need it',
-    body: 'You cannot detect what you never collected. Agents ship auth, system and file-integrity telemetry to the lab SIEM continuously — logging is a prerequisite, never a phase two.',
+    body: 'You cannot detect what you never collected. Agents ship auth, system and file-integrity telemetry to the isolated lab SIEM continuously — logging is a prerequisite, never a phase two.',
     points: ['Wazuh agents on every host', 'Auth + auditd + syscheck', 'UTC-everywhere timestamps'],
     links: [
       { href: '/lab/wazuh-deployment-tuning', label: 'Wazuh deployment lab' },
@@ -75,7 +75,7 @@ const stages = [
     n: '06',
     label: 'Improvement',
     title: 'Every incident teaches',
-    body: 'Findings feed back into rules, baselines and runbooks. The journal is the real output of the lab — each entry makes the next detection faster and the next response calmer.',
+    body: 'Findings feed back into rules, baselines and runbooks. The journal preserves the reference evidence for the lab — each entry informs the next detection and response review.',
     points: ['Runbooks rewritten after incidents', 'Baselines re-snapshotted', 'Knowledge base grows'],
     links: [
       { href: '/lab', label: 'Lab journal' },
