@@ -23,16 +23,17 @@ export function ProjectCard({ project }: { project: Project }) {
         <Link href={`/projects/${project.slug}`}>{project.title}</Link>
       </h3>
       <p>{project.summary}</p>
+      <p className="evidence-caption">{project.evidence.map((e) => e.kind).filter((v, i, a) => a.indexOf(v) === i).join(" · ")}</p>
       <div className="tag-row" aria-label="Technologies">
         {project.stack.slice(0, 4).map((t) => (
           <span key={t} className="tag">{t}</span>
         ))}
       </div>
       <div className="card-links">
-        <Link href={`/projects/${project.slug}`}>Case study →</Link>
+        <Link href={`/projects/${project.slug}`}>Explore project →</Link>
         {project.github ? (
           <a href={project.github} target="_blank" rel="noopener noreferrer">
-            GitHub ↗
+            View GitHub evidence ↗
           </a>
         ) : null}
       </div>
