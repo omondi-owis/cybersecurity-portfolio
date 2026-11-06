@@ -12,10 +12,10 @@ export const site = {
     'Authorized security services for monitoring, hardening, review and documentation.',
   bio: 'VYRA offers scoped cybersecurity services for teams that need practical help strengthening systems, visibility and security operations.',
 
-  // Public direct-contact and social links remain intentionally unpublished.
+  // GitHub is public evidence; direct contact details remain unpublished.
   // The contact form keeps using its private server-side delivery variables.
   email: '',
-  github: '',
+  github: 'https://github.com/omondi-owis',
   linkedin: '',
   instagram: '',
   youtube: '',
