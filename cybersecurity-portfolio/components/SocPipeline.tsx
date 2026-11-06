@@ -66,7 +66,7 @@ const stages = [
     body: 'Automation enriches; humans contain. Every defensive action is allowlisted, explicitly approved, and audit-logged — because containment mistakes are worse than slow containment.',
     points: ['Approval-gated actions', 'Fail-closed scope files', 'Immutable audit trail'],
     links: [
-      { href: '/projects/secureops', label: 'SecureOps case study' },
+      { href: '/projects/mlinziops', label: 'MlinziOps case study' },
       { href: '/projects/jarvis', label: 'Guardrailed AI experiment' },
     ],
   },
