@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     url: site.siteUrl, images: [{ url: '/og-image.svg', width: 1200, height: 630, alt: `${site.name} — ${site.title}` }],
   },
   twitter: { card: 'summary_large_image', title: `${site.name} — ${site.title}`, description: 'Practical, authorized cybersecurity support with clear scope and documentation.', images: ['/og-image.svg'] },
-  icons: { icon: '/favicon.svg', apple: '/favicon.svg' }, manifest: '/manifest.webmanifest',
+  icons: { icon: [{ url: '/vyra-icon-32.png', sizes: '32x32', type: 'image/png' }, { url: '/vyra-icon-192.png', sizes: '192x192', type: 'image/png' }], apple: [{ url: '/vyra-icon-180.png', sizes: '180x180', type: 'image/png' }] }, manifest: '/manifest.webmanifest',
 };
 
 export const viewport: Viewport = { themeColor: [{ media: '(prefers-color-scheme: dark)', color: '#05080d' }, { media: '(prefers-color-scheme: light)', color: '#f4f6fa' }], width: 'device-width', initialScale: 1 };
