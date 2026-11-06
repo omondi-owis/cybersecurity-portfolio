@@ -6,7 +6,7 @@ import { projects } from '@/content/projects';
 export const metadata: Metadata = {
   title: 'Projects',
   description:
-    'Case studies in security operations, detection engineering, hardened infrastructure, and full-stack development: MlinziOps, SecureOps, JARVIS, SmartRecovery, Security Lab.',
+    'Inspect public GitHub source, test definitions, investigation reports and lab documentation for MlinziOps, Wazuh investigations, Security Lab and JARVIS.',
   alternates: { canonical: '/projects' },
 };
 
@@ -18,9 +18,7 @@ export default function ProjectsPage() {
         <p className="eyebrow">Technical case studies</p>
         <h1>Projects with evidence.</h1>
         <p className="lede">
-          Each project is a technical case study covering the problem, architecture, security
-          decisions, constraints, and outcomes. Status labels remain explicit: systems
-          in development, research, academic work, and lab references are identified as such.
+          Go beyond the overview. Open the repository, inspect the implementation, read the investigation and review the limitations. Each reference is labelled as source, tests, report or setup documentation.
         </p>
       </div>
       <section aria-label="All projects">
@@ -31,9 +29,7 @@ export default function ProjectsPage() {
             ))}
           </div>
           <div className="note-box">
-            <strong>Repository links appear as they&apos;re published.</strong> Each
-            case study documents the real system; GitHub links are added only for
-            repositories that have been published — never invented.
+            <strong>Reviewable work, not borrowed credibility.</strong> These are public engineering and lab references, not client engagements. Source code, written reports and deployed validation are different kinds of evidence. Each project explains what is available.
           </div>
         </div>
       </section>
