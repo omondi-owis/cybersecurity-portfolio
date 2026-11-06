@@ -79,6 +79,17 @@ export default async function ProjectPage({ params }: Props) {
         </div>
       </div>
 
+      <section aria-labelledby="evidence-heading" className="project-evidence-section">
+        <div className="container">
+          <p className="eyebrow">Inspect the work</p>
+          <h2 id="evidence-heading" className="h2">Evidence, directly from the source.</h2>
+          <div className="card-grid" style={{marginTop:'1.5rem'}}>
+            {p.evidence.map((e) => <a key={e.href} className="card evidence-artifact" href={e.href} target="_blank" rel="noopener noreferrer"><span className="card-cat">{e.kind}</span><h3>{e.label} ↗</h3><p>{e.detail}</p><span className="evidence-caption">github.com / omondi-owis</span></a>)}
+          </div>
+          <div className="note-box"><strong>What this establishes.</strong> {p.evidenceNote}</div>
+        </div>
+      </section>
+
       <section aria-label={`${p.title} case study`}>
         <div className="container case-grid">
           <div className="prose">
