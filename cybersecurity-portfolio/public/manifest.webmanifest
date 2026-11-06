@@ -8,13 +8,13 @@
   "theme_color": "#05080d",
   "icons": [
     {
-      "src": "/vyra-icon-192.png",
+      "src": "/brand-icon/192",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "/vyra-icon-512.png",
+      "src": "/brand-icon/512",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
