@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import HeroNetwork from '@/components/HeroNetwork';
 import SocPipeline from '@/components/SocPipeline';
 import { ProjectCard, ArticleCard } from '@/components/Cards';
 import Philosophy from '@/components/Philosophy';
@@ -37,7 +36,7 @@ export default function Home() {
             </p>
             <div className="btn-row">
               <Link className="btn btn-primary" href="/services">View services</Link>
-              <Link className="btn btn-ghost" href="/contact">Discuss a scope</Link>
+              <Link className="btn btn-ghost" href="/projects">Inspect the evidence ↗</Link>
             </div>
             <div className="hero-meta" aria-label="Service areas">
               {['SIEM / Wazuh', 'Linux security', 'Network review', 'Python automation', 'Incident triage'].map((c) => (
@@ -47,14 +46,7 @@ export default function Home() {
           </div>
           <CurrentFocus />
         </div>
-        <div className="container" style={{ marginTop: '3rem', position: 'relative' }}>
-          <div className="diagram reveal" style={{ background: 'rgba(14,21,31,0.6)' }}>
-            <HeroNetwork />
-            <p className="hero-viz-caption" style={{ marginTop: '0.5rem' }}>
-              Illustrative topology — a visual explanation of service areas, not live telemetry or client infrastructure.
-            </p>
-          </div>
-        </div>
+
       </div>
 
       <section aria-labelledby="services-h">
@@ -98,9 +90,9 @@ export default function Home() {
         <div className="container">
           <div className="section-head reveal">
             <p className="eyebrow">Technical work</p>
-            <h2 className="h2" id="work-h">Methods and implementation notes</h2>
+            <h2 className="h2" id="work-h">Real work. Open to inspection.</h2>
             <p className="lede">
-              Public technical material explains the approaches and tooling behind VYRA&apos;s service areas. It is reference material, not a claim of work performed for a client.
+              Follow the work from overview to public GitHub artifacts: platform source, test definitions, investigation reasoning and environment documentation. Engineering and lab references, not invented client success stories.
             </p>
           </div>
           <div className="card-grid">
