@@ -77,9 +77,9 @@ export const articles: Article[] = [
         'This article explains the portfolio configuration and its limitations; it does not claim an independent security audit.'
       ] },
       { id: 'configuration', heading: 'What the portfolio currently configures', paragraphs: [
-        'The configuration includes HTTPS enforcement through HSTS, nosniff, frame restrictions, a referrer policy and restrictions on browser capabilities such as camera and microphone. Its Content Security Policy limits resource sources but still permits inline scripts and inline styles.',
-        'That inline-script exception weakens protection against script injection. It must not be described as a nonce-based policy or as blocking all inline JavaScript. A nonce/hash-based policy is a future hardening step that needs framework-aware implementation and testing.'
-      ], code: { lang: 'text', caption: 'Current script-policy tradeoff, not a recommended universal policy', code: "script-src 'self' 'unsafe-inline'\nobject-src 'none'\nframe-ancestors 'none'" } },
+        'The configuration includes HTTPS enforcement through HSTS, nosniff, frame restrictions, a referrer policy and restrictions on browser capabilities such as camera and microphone. Its Content Security Policy uses a fresh nonce for framework scripts on each HTML response, blocks script event handlers, and restricts resource sources.',
+        'A nonce is a narrowly scoped allowance for trusted framework-generated script tags, not a blanket inline-script exception. Untrusted inline scripts remain blocked. Existing React style attributes are temporarily allowed while their migration is tracked separately; this does not enable inline JavaScript.'
+      ], code: { lang: 'text', caption: 'Rendered HTML script policy', code: "script-src 'self' 'nonce-&lt;per-request-value&gt;' 'strict-dynamic'\nscript-src-attr 'none'\nobject-src 'none'\nframe-ancestors 'none'" } },
       { id: 'check', heading: 'Check the deployed response and the browser', paragraphs: [
         'Inspect real response headers after deployment, including important routes and error responses. Then check browser behavior: a policy that looks strict can still break required scripts, fonts or form handling.',
         'Review any new third-party resource deliberately. Avoid weakening a policy broadly just to silence a console error; identify the dependency and permit only what is necessary.'

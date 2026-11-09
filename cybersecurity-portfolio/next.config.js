@@ -1,21 +1,6 @@
 /** @type {import('next').NextConfig} */
 
-const csp = [
-  "default-src 'self'",
-  "base-uri 'self'",
-  "object-src 'none'",
-  "frame-ancestors 'none'",
-  "form-action 'self'",
-  "img-src 'self' data: https:",
-  "font-src 'self' https://fonts.gstatic.com data:",
-  "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-  "script-src 'self' 'unsafe-inline'",
-  "connect-src 'self' https://api.github.com",
-  "upgrade-insecure-requests",
-].join('; ');
-
 const securityHeaders = [
-  { key: 'Content-Security-Policy', value: csp },
   {
     key: 'Strict-Transport-Security',
     value: 'max-age=63072000; includeSubDomains; preload',

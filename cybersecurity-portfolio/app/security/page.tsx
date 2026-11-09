@@ -19,7 +19,7 @@ const layers = [
   {
     n: 'Layer 2 — Application',
     title: 'Application',
-    items: ['CSP: self-hosted scripts; inline scripts currently allowed', 'Secure headers on every route', 'Validated rendering — React escaping + schema checks'],
+    items: ['CSP: per-request script nonces; untrusted inline scripts and event handlers blocked', 'Secure headers on every route', 'Validated rendering — React escaping + schema checks'],
   },
   {
     n: 'Layer 3 — API',
@@ -140,7 +140,7 @@ export default function SecurityPage() {
             <h2 className="h2" id="headers-h">Headers &amp; hardening specifics</h2>
             <div className="prose">
               <ul>
-                <li><strong>CSP:</strong> default-src self, script-src self plus unsafe-inline, frame-ancestors none, upgrade-insecure-requests. Inline scripts are currently allowed; a nonce/hash-based policy is a future hardening step.</li>
+                <li><strong>CSP:</strong> each HTML response receives a cryptographically random script nonce; production script-src has no unsafe-inline or unsafe-eval, and script event handlers are blocked. HTML is dynamic and no-store so the nonce cannot be reused from a cached page. Existing React style attributes remain temporarily permitted through style-src-attr unsafe-inline; stylesheet elements remain restricted to approved origins.</li>
                 <li><strong>HSTS:</strong> long max-age with subdomains; preload-ready for the production domain.</li>
                 <li><strong>Framing:</strong> X-Frame-Options DENY plus CSP frame-ancestors — no clickjacking host.</li>
                 <li><strong>Contact API:</strong> JSON-only, 10 KB cap, Zod validation, honeypot, 5/hour/IP rate limit with Retry-After.</li>

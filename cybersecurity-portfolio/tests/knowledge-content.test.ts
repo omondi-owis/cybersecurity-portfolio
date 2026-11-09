@@ -16,7 +16,8 @@ describe('knowledge guides', () => {
     expect(intro).toContain('completed project');
     expect(JSON.stringify(articles)).not.toContain('78%');
     const csp = articles.find(a => a.slug === 'secure-headers-nextjs')!;
-    expect(JSON.stringify(csp)).toContain('still permits inline scripts');
+    expect(JSON.stringify(csp)).toContain('fresh nonce for framework scripts');
+    expect(JSON.stringify(csp)).toContain('Untrusted inline scripts remain blocked');
   });
   it('keeps animation opt-in and observes dynamically added cards', () => {
     const css = fs.readFileSync('app/knowledge-fixes.css', 'utf8');
