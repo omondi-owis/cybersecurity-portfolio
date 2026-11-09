@@ -40,8 +40,8 @@ export async function rateLimit(
       !Number.isSafeInteger(opts.windowMs) || opts.windowMs < 1 || opts.windowMs > 86_400_000) {
     throw new RateLimitUnavailable();
   }
-  const endpoint = process.env.UPSTASH_REDIS_REST_URL?.trim();
-  const token = process.env.UPSTASH_REDIS_REST_TOKEN?.trim();
+  const endpoint = process.env.UPSTASH_REDIS_REST_URL?.trim() || process.env.KV_REST_API_URL?.trim();
+  const token = process.env.UPSTASH_REDIS_REST_TOKEN?.trim() || process.env.KV_REST_API_TOKEN?.trim();
   const secret = process.env.RATE_LIMIT_HMAC_SECRET?.trim();
   const namespace = process.env.RATE_LIMIT_NAMESPACE?.trim() || 'vyra:rate:v1';
   if (!endpoint || !token || !secret || secret.length < 32 || !/^[a-zA-Z0-9:_-]{1,80}$/.test(namespace)) {
