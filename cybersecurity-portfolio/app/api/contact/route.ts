@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { contactSchema, safeFieldErrors } from '@/lib/validation';
 import { rateLimit } from '@/lib/rate-limit';
-import { clientIp } from '@/lib/utils';
+import { clientIp } from '@/lib/client-ip';
 
 export const dynamic = 'force-dynamic';
 
@@ -62,13 +62,21 @@ export async function POST(req: Request) {
     );
   }
 
-  const rl = rateLimit(`contact:${ip}`, { limit: 5, windowMs: 60 * 60 * 1000 });
+  let rl;
+  try {
+    rl = await rateLimit(`contact:${ip}`, { limit: 5, windowMs: 60 * 60 * 1000 });
+  } catch {
+    return NextResponse.json(
+      { ok: false, error: 'Messaging is temporarily unavailable. Please try again later.' },
+      { status: 503, headers: { 'Cache-Control': 'no-store', 'Retry-After': '60', 'x-request-id': id } }
+    );
+  }
   if (!rl.allowed) {
     const retryAfterSec = Math.ceil(rl.resetAfterMs / 1000);
     console.warn(JSON.stringify({ evt: 'contact.rate_limited', id, ip: ip.slice(0, 16) }));
     return NextResponse.json(
       { ok: false, error: 'Too many messages. Please wait and try again.', retryAfterSec },
-      { status: 429, headers: { 'x-request-id': id, 'Retry-After': String(retryAfterSec) } }
+      { status: 429, headers: { 'x-request-id': id, 'Retry-After': String(retryAfterSec), 'Cache-Control': 'no-store' } }
     );
   }
 
