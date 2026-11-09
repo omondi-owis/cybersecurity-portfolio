@@ -31,7 +31,7 @@ export default function PrivacyPage() {
 
           <h2>What is collected</h2>
           <ul>
-            <li><strong>Contact form:</strong> name, email, subject, message — used solely to read and reply to your message. If email delivery is configured, the message is forwarded to the owner&apos;s inbox; otherwise it is logged for manual review.</li>
+            <li><strong>Contact form:</strong> name, email, subject and message — used solely to read and reply. When the optional enquiry system is enabled, submissions are stored in a private database before delivery is attempted; delivery failure does not discard a stored enquiry. New or closed enquiries are retained for no more than 90 days unless reviewed. You can request deletion.</li>
             <li><strong>Abuse prevention:</strong> rate-limit counters keyed by network address, plus metadata-only security logs (timestamps, counters, request IDs). Message bodies and full addresses are never written to these logs.</li>
             <li><strong>Theme preference:</strong> stored in your own browser&apos;s localStorage only. It never leaves your device.</li>
           </ul>
@@ -56,7 +56,7 @@ export default function PrivacyPage() {
           <p>
             If you submitted the contact form and want your message deleted, request
             deletion via the <Link href="/contact">contact page</Link> from the same
-            email address and it will be removed from the inbox/log retention.
+            email address. Approved deletion removes the stored enquiry; backup retention is governed by the hosting provider&apos;s normal backup lifecycle.
           </p>
 
           <h2>Changes</h2>
