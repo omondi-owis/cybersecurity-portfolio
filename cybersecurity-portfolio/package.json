@@ -15,6 +15,7 @@
     "secret-scan": "bash ./scripts/secret-scan.sh"
   },
   "dependencies": {
+    "@neondatabase/serverless": "^1.2.0",
     "next": "15.5.29",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
