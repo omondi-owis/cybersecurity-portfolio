@@ -1,1 +1,21 @@
-aW1wb3J0IHsgaXNJUCB9IGZyb20gJ25vZGU6bmV0JzsKCi8qKiBUcnVzdCBvbmx5IHBsYXRmb3JtLW92ZXJ3cml0dGVuIGhlYWRlcnMsIG5ldmVyIGFyYml0cmFyeSBmb3J3YXJkZWQgaW5wdXQuCiAqIE9mZiBWZXJjZWwgYW4gb3BlcmF0b3IgbXVzdCBleHBsaWNpdGx5IG5hbWUgYSB0cnVzdGVkLCBvdmVyd3JpdHRlbiBoZWFkZXIuCiAqIE1pc3NpbmcvaW52YWxpZCBhZGRyZXNzZXMgc2hhcmUgYSBjb25zZXJ2YXRpdmUgdW5rbm93biBxdW90YSwgbmV2ZXIgYnlwYXNzIGl0LgogKi8KZXhwb3J0IGZ1bmN0aW9uIGNsaWVudElwKGhlYWRlcnM6IEhlYWRlcnMpOiBzdHJpbmcgewogIGNvbnN0IGhlYWRlciA9IHByb2Nlc3MuZW52LlZFUkNFTCA9PT0gJzEnID8gJ3gtdmVyY2VsLWZvcndhcmRlZC1mb3InIDogcHJvY2Vzcy5lbnYuUkFURV9MSU1JVF9UUlVTVEVEX0lQX0hFQURFUj8udHJpbSgpOwogIGlmICghaGVhZGVyIHx8ICEvXlthLXpBLVowLTktXSskLy50ZXN0KGhlYWRlcikpIHJldHVybiAndW5rbm93bic7CiAgY29uc3QgdmFsdWUgPSBoZWFkZXJzLmdldChoZWFkZXIpPy50cmltKCk7CiAgaWYgKCF2YWx1ZSB8fCB2YWx1ZS5sZW5ndGggPiA2NCB8fCB2YWx1ZS5pbmNsdWRlcygnJScpIHx8ICFpc0lQKHZhbHVlKSkgcmV0dXJuICd1bmtub3duJzsKICBpZiAoaXNJUCh2YWx1ZSkgPT09IDQpIHJldHVybiB2YWx1ZTsKICBjb25zdCBjYW5vbmljYWwgPSBuZXcgVVJMKGBodHRwOi8vWyR7dmFsdWV9XS9gKS5ob3N0bmFtZS5zbGljZSgxLCAtMSk7CiAgLy8gQ29sbGFwc2UgSVB2NC1tYXBwZWQgSVB2NiBhZGRyZXNzZXMgdG8gdGhlIGVxdWl2YWxlbnQgSVB2NCBrZXkuCiAgY29uc3QgbWFwcGVkID0gL146OmZmZmY6KFswLTlhLWZdKyk6KFswLTlhLWZdKykkLy5leGVjKGNhbm9uaWNhbCk7CiAgaWYgKG1hcHBlZCkgewogICAgY29uc3QgaGlnaCA9IHBhcnNlSW50KG1hcHBlZFsxXSwgMTYpLCBsb3cgPSBwYXJzZUludChtYXBwZWRbMl0sIDE2KTsKICAgIHJldHVybiBgJHtoaWdoID4+IDh9LiR7aGlnaCAmIDI1NX0uJHtsb3cgPj4gOH0uJHtsb3cgJiAyNTV9YDsKICB9CiAgcmV0dXJuIGNhbm9uaWNhbDsKfQo=
+import { isIP } from 'node:net';
+
+/** Trust only platform-overwritten headers, never arbitrary forwarded input.
+ * Off Vercel an operator must explicitly name a trusted, overwritten header.
+ * Missing/invalid addresses share a conservative unknown quota, never bypass it.
+ */
+export function clientIp(headers: Headers): string {
+  const header = process.env.VERCEL === '1' ? 'x-vercel-forwarded-for' : process.env.RATE_LIMIT_TRUSTED_IP_HEADER?.trim();
+  if (!header || !/^[a-zA-Z0-9-]+$/.test(header)) return 'unknown';
+  const value = headers.get(header)?.trim();
+  if (!value || value.length > 64 || value.includes('%') || !isIP(value)) return 'unknown';
+  if (isIP(value) === 4) return value;
+  const canonical = new URL(`http://[${value}]/`).hostname.slice(1, -1);
+  // Collapse IPv4-mapped IPv6 addresses to the equivalent IPv4 key.
+  const mapped = /^::ffff:([0-9a-f]+):([0-9a-f]+)$/.exec(canonical);
+  if (mapped) {
+    const high = parseInt(mapped[1], 16), low = parseInt(mapped[2], 16);
+    return `${high >> 8}.${high & 255}.${low >> 8}.${low & 255}`;
+  }
+  return canonical;
+}
