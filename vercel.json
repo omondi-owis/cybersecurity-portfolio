@@ -1,6 +1,5 @@
 {
-  "installCommand": "cd cybersecurity-portfolio && npm ci",
+  "installCommand": "cd cybersecurity-portfolio && npm ci && cd .. && ln -s cybersecurity-portfolio/node_modules node_modules",
   "buildCommand": "cd cybersecurity-portfolio && npm run build",
-  "outputDirectory": "cybersecurity-portfolio/.next",
   "framework": "nextjs"
 }
