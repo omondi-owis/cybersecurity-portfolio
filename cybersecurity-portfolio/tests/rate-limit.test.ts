@@ -26,6 +26,24 @@ describe('shared Redis limiter REST contract', () => {
     vi.mocked(fetch).mockResolvedValue(new Response('{"result":[0,0,1700]}'));
     expect(await rateLimit('contact:a')).toEqual({allowed:false,remaining:0,resetAfterMs:1700});
   });
+  it('uses KV REST variables when Upstash variables are absent', async () => {
+    vi.stubEnv('UPSTASH_REDIS_REST_URL', '');
+    vi.stubEnv('UPSTASH_REDIS_REST_TOKEN', '');
+    vi.stubEnv('KV_REST_API_URL', 'https://kv.example.com');
+    vi.stubEnv('KV_REST_API_TOKEN', 'kv-token');
+    await rateLimit('contact:kv');
+    const [url, init] = vi.mocked(fetch).mock.calls[0];
+    expect(url).toBe('https://kv.example.com/');
+    expect(init?.headers).toEqual({ Authorization: 'Bearer kv-token', 'Content-Type': 'application/json' });
+  });
+  it('prefers configured Upstash variables over KV REST variables', async () => {
+    vi.stubEnv('KV_REST_API_URL', 'https://kv.example.com');
+    vi.stubEnv('KV_REST_API_TOKEN', 'kv-token');
+    await rateLimit('contact:precedence');
+    const [url, init] = vi.mocked(fetch).mock.calls[0];
+    expect(url).toBe('https://redis.example.com/');
+    expect(init?.headers).toEqual({ Authorization: 'Bearer fake-token', 'Content-Type': 'application/json' });
+  });
   it.each(['UPSTASH_REDIS_REST_URL','UPSTASH_REDIS_REST_TOKEN','RATE_LIMIT_HMAC_SECRET'])('fails closed on missing %s',async name=>{
     vi.stubEnv(name,'');await expect(rateLimit('x')).rejects.toBeInstanceOf(RateLimitUnavailable);expect(fetch).not.toHaveBeenCalled();
   });
