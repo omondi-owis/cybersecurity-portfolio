@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "description": "VYRA cybersecurity case studies, reference lab documentation, and security operations research.",
-    "license": "UNLICENSED",
+  "license": "UNLICENSED",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -15,22 +15,25 @@
     "secret-scan": "bash ./scripts/secret-scan.sh"
   },
   "dependencies": {
-    "next": "^15.5.26",
+    "next": "15.5.29",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
-    "zod": "^3.23.8"
+    "zod": "4.6.7"
   },
   "devDependencies": {
     "@types/node": "^20.12.12",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "typescript": "^5.4.5",
-    "vitest": "^4.1.11"
+    "vitest": "4.1.12"
   },
   "engines": {
-    "node": ">=18.17.0"
+    "node": "^20.19.0 || ^22.12.0 || >=24.0.0"
   },
   "overrides": {
-    "postcss": "^8.5.28"
+    "postcss": "8.5.32",
+    "sharp": "0.35.5",
+    "source-map-js": "1.2.2",
+    "vite": "8.3.7"
   }
 }
