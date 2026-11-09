@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { getPinnedRepos } from '@/lib/github';
 import { rateLimit } from '@/lib/rate-limit';
-import { clientIp } from '@/lib/utils';
+import { clientIp } from '@/lib/client-ip';
 
 export const dynamic = 'force-dynamic';
 
@@ -14,9 +14,17 @@ export async function GET(req: Request) {
   const headers = new Headers(req.headers);
   const ip = clientIp(headers);
 
-  const rl = rateLimit(`github:${ip}`, { limit: 30, windowMs: 60 * 1000 });
+  let rl;
+  try {
+    rl = await rateLimit(`github:${ip}`, { limit: 30, windowMs: 60 * 1000 });
+  } catch {
+    return NextResponse.json(
+      { ok: false, error: 'Service temporarily unavailable.' },
+      { status: 503, headers: { 'Cache-Control': 'no-store', 'Retry-After': '60' } }
+    );
+  }
   if (!rl.allowed) {
-    return NextResponse.json({ ok: false, error: 'Rate limited.' }, { status: 429 });
+    return NextResponse.json({ ok: false, error: 'Rate limited.' }, { status: 429, headers: { 'Retry-After': String(Math.ceil(rl.resetAfterMs / 1000)), 'Cache-Control': 'no-store' } });
   }
 
   const url = new URL(req.url);
@@ -28,6 +36,6 @@ export async function GET(req: Request) {
   const repos = await getPinnedRepos(user);
   return NextResponse.json(
     { ok: true, repos },
-    { headers: { 'Cache-Control': 'public, max-age=300' } }
+    { headers: { 'Cache-Control': 'no-store' } }
   );
 }

@@ -42,10 +42,3 @@ export function escapeHtml(s: string): string {
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#39;');
 }
-
-/** Client IP from proxy headers (first entry, trimmed). Never trust for auth — rate limiting only. */
-export function clientIp(headers: Headers): string {
-  const fwd = headers.get('x-forwarded-for');
-  if (fwd) return fwd.split(',')[0].trim().slice(0, 64);
-  return (headers.get('x-real-ip') ?? 'unknown').trim().slice(0, 64);
-}
