@@ -8,7 +8,7 @@ import type { NextRequest } from 'next/server';
  * - Blocks obviously malicious paths (scanner noise) with 404 instead of hitting routes
  * - API routes are no-store; pages keep default caching
  *
- * Full rate limiting lives in the API route (in-memory token bucket)
+ * Full rate limiting lives in the API route (atomic shared Redis quotas)
  * so it also works when middleware is bypassed in some hosts.
  */
 
