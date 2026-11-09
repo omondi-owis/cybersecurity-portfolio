@@ -29,7 +29,7 @@ const layers = [
   {
     n: 'Layer 4 — Data',
     title: 'Data',
-    items: ['Minimal collection: contact fields only', 'No database of visitors; no tracking profiles', 'Secrets server-side only, never NEXT_PUBLIC_'],
+    items: ['Minimal collection: contact fields only', 'Optional enquiry storage; no visitor database or tracking profiles', 'Secrets server-side only, never NEXT_PUBLIC_'],
   },
   {
     n: 'Layer 5 — Development',
@@ -100,11 +100,11 @@ export default function SecurityPage() {
             ))}
           </div>
           <div className="note-box">
-            <strong>Out of scope by design:</strong> there is no user authentication,
-            no file upload, no admin panel, and no database of visitors — the
-            highest-risk features were removed rather than secured, because a
-            portfolio doesn&apos;t need them. The smallest attack surface is the one
-            you never build.
+            <strong>Out of scope by design:</strong> there are no public user accounts,
+            no file uploads, and no visitor database. A private, email-code-protected
+            enquiry dashboard is available only when its server-side configuration is
+            complete; it stores submitted enquiries, not browsing activity. The
+            smallest attack surface is the one you never build.
           </div>
         </div>
       </section>
