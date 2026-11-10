@@ -30,6 +30,50 @@
     "vitest": "4.1.12"
   },
   "engines": {
+    "node": "^20.19.0 || ^22.13.0 || >=24.0.0"
+  },
+  "overrides": {
+    "postcss": "8.5.32",
+    "sharp": "0.35.5",
+    "source-map-js": "1.2.2",
+    "vite": "8.3.7",
+    "@typescript-eslint/typescript-estree": {
+      "minimatch": "11.0.1"
+    }
+  }
+}
+{
+  "name": "vyra-security",
+  "version": "1.0.0",
+  "private": true,
+  "description": "VYRA cybersecurity case studies, reference lab documentation, and security operations research.",
+  "license": "UNLICENSED",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start -H 0.0.0.0 -p 3000",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "audit": "npm audit --audit-level=moderate",
+    "secret-scan": "bash ./scripts/secret-scan.sh"
+  },
+  "dependencies": {
+    "next": "15.5.29",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "zod": "4.6.7"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.12",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "eslint": "8.57.1",
+    "eslint-config-next": "15.5.29",
+    "typescript": "^5.4.5",
+    "vitest": "4.1.12"
+  },
+  "engines": {
     "node": "^20.19.0 || ^22.12.0 || >=24.0.0"
   },
   "overrides": {
