@@ -1,7 +1,7 @@
 # Preview validation checkpoint
 
-Preview-only rate-limit configuration saved and verified in the provider UI. A fresh feature deployment is required.
+Preview-only rate-limit configuration saved and verified. Canonical Preview origin and dashboard enablement explicitly aligned.
 
-This checkpoint does not establish successful hosted authentication or persistence. Production promotion remains prohibited pending end-to-end validation.
+Hosted sign-in and persistence remain pending. Production promotion remains prohibited pending end-to-end validation.
 
 No credentials or environment values are recorded here.
