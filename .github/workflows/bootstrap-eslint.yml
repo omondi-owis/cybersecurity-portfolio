@@ -1,11 +1,9 @@
 name: Bootstrap ESLint toolchain
 
 on:
-  pull_request:
-    branches: [main]
-    paths:
-      - cybersecurity-portfolio/package.json
-      - .github/workflows/bootstrap-eslint.yml
+  push:
+    branches:
+      - feature/vyra-editorial
   workflow_dispatch:
 
 permissions:
@@ -13,18 +11,14 @@ permissions:
 
 jobs:
   pin-eslint:
-    if: github.event_name == "workflow_dispatch" || github.event.pull_request.head.ref == "feature/vyra-editorial"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.pull_request.head.ref || github.ref_name }}
           token: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/setup-node@v4
         with:
           node-version: 22.12.0
-          cache: npm
-          cache-dependency-path: cybersecurity-portfolio/package-lock.json
       - name: Pin ESLint and generate lockfile
         working-directory: cybersecurity-portfolio
         run: |
