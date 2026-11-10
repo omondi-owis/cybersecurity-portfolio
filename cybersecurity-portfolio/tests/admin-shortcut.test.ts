@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { readFileSync } from 'node:fs';
-import { metadata } from '../app/admin/layout';
+import { metadata } from '../app/admin/metadata';
 
 const load = (file: string) => JSON.parse(readFileSync(new URL(file, import.meta.url), 'utf8'));
 

@@ -14,10 +14,11 @@ export default function Login() {
     try {
       const response = await fetch('/api/admin/auth/request', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{}' });
       if (!response.ok) throw new Error('unavailable');
+      setCode('');
       setRequested(true);
-      setMessage('A code was sent if private sign-in is available.');
+      setMessage('If sign-in is available, a code has been sent to the configured admin inbox.');
     } catch {
-      setMessage('Sign-in is unavailable.');
+      setMessage('Sign-in is unavailable. Please try again later.');
     } finally {
       setBusy(false);
     }
@@ -32,31 +33,39 @@ export default function Login() {
       if (!response.ok) throw new Error('unavailable');
       window.location.assign('/admin');
     } catch {
-      setMessage('Sign-in is unavailable.');
+      setMessage('We could not sign you in. Check the latest code or request a new one.');
     } finally {
       setBusy(false);
     }
   }
 
   return (
-    <section className="container page-head">
-      <p className="eyebrow">PRIVATE</p>
-      <h1>VYRA enquiries</h1>
-      <p className="lede">Private access only.</p>
-      {!requested ? (
-        <button className="btn btn-primary" type="button" onClick={() => void requestCode()} disabled={busy}>
-          {busy ? 'Sending…' : 'Send sign-in code'}
-        </button>
-      ) : (
-        <form className="form" onSubmit={verify}>
-          <div className="field">
+    <div className="va-login">
+      <section className="va-login-story" aria-labelledby="workspace-title">
+        <p className="va-kicker">VYRA BUSINESS DESK</p>
+        <h1 id="workspace-title">Your enquiries.<br />One clear view.</h1>
+        <p className="va-intro">A focused workspace for the conversations that start on your website. Review, respond and keep track of what comes next.</p>
+        <div className="va-login-points">
+          <div className="va-login-point"><span aria-hidden="true">01</span><div><strong>Private by design</strong>Customer messages stay behind administrator sign-in.</div></div>
+          <div className="va-login-point"><span aria-hidden="true">02</span><div><strong>Simple follow-through</strong>Keep new, replied and closed enquiries organised.</div></div>
+          <div className="va-login-point"><span aria-hidden="true">03</span><div><strong>No password to remember</strong>Use a one-time code sent to your configured inbox.</div></div>
+        </div>
+      </section>
+      <section className="va-login-card" aria-labelledby="signin-title">
+        <div className="va-lock" aria-hidden="true">◇</div>
+        <h2 id="signin-title">{requested ? 'Check your inbox' : 'Welcome back'}</h2>
+        <p>{requested ? 'Enter the latest six-digit code to open your workspace.' : 'Sign in to your private enquiry dashboard. Codes go only to the configured administrator inbox.'}</p>
+        {!requested ? <button className="va-button va-button-primary" type="button" onClick={() => void requestCode()} disabled={busy}>{busy ? 'Sending…' : 'Send sign-in code'}</button> : (
+          <form onSubmit={verify}>
             <label htmlFor="admin-code">One-time code</label>
-            <input id="admin-code" aria-label="One-time code" value={code} onChange={(event) => setCode(event.target.value.replace(/\D/g, '').slice(0, 6))} inputMode="numeric" autoComplete="one-time-code" maxLength={6} pattern="[0-9]{6}" required />
-          </div>
-          <button className="btn btn-primary" type="submit" disabled={busy || code.length !== 6}>{busy ? 'Checking…' : 'Sign in'}</button>
-        </form>
-      )}
-      {message && <p aria-live="polite">{message}</p>}
-    </section>
+            <input id="admin-code" value={code} onChange={event => setCode(event.target.value.replace(/\D/g, '').slice(0, 6))} inputMode="numeric" autoComplete="one-time-code" maxLength={6} pattern="[0-9]{6}" placeholder="000000" required autoFocus disabled={busy} aria-describedby="code-help" />
+            <button className="va-button va-button-primary" type="submit" disabled={busy || code.length !== 6}>{busy ? 'Checking…' : 'Open dashboard'}</button>
+            <button className="va-button va-button-subtle va-resend" type="button" onClick={() => void requestCode()} disabled={busy}>Request a new code</button>
+          </form>
+        )}
+        {message && <p className="va-login-feedback" role="status">{message}</p>}
+        <p className="va-login-help" id="code-help">Codes expire after 10 minutes. Enter your code in the same browser that requested it. Never share it.</p>
+      </section>
+    </div>
   );
 }
