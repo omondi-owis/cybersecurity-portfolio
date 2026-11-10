@@ -15,7 +15,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Refresh scoped lockfile
+      - name: Refresh patched lockfile
         working-directory: cybersecurity-portfolio
         run: npm install --package-lock-only && npm ci && npm run audit
       - name: Commit scoped dependency repair
