@@ -5,17 +5,17 @@ import { useEffect, useState } from 'react';
 type Theme = 'dark' | 'light';
 
 function currentTheme(): Theme {
-  if (typeof document === 'undefined') return 'light';
-  return document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
+  if (typeof document === 'undefined') return 'dark';
+  return document.documentElement.dataset.theme === 'light' ? 'light' : 'dark';
 }
 
 export default function ThemeToggle() {
-  const [theme, setTheme] = useState<Theme>('light');
+  const [theme, setTheme] = useState<Theme>('dark');
 
   useEffect(() => {
     try {
       const saved = localStorage.getItem('theme');
-      const next: Theme = saved === 'dark' || saved === 'light' ? saved : 'light';
+      const next: Theme = saved === 'dark' || saved === 'light' ? saved : 'dark';
       document.documentElement.dataset.theme = next;
       setTheme(next);
     } catch {

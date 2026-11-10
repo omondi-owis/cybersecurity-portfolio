@@ -21,19 +21,132 @@ export default function Home() {
 
   return (
     <>
-      <div className="hero"><div className="container hero-grid"><div><span className="hero-kicker">CYBERSECURITY SERVICES</span><h1>{site.name}<br /><span className="thin">Practical security, clearly scoped.</span></h1><p className="hero-sub"><strong>Stronger systems. Clearer visibility. Actionable security.</strong>{' '}VYRA helps businesses strengthen Linux systems, improve security monitoring and automate log analysis, with practical findings and clear documentation.</p><div className="btn-row"><Link className="btn btn-primary" href="/services">View services</Link><Link className="btn btn-ghost" href="/projects">Inspect the evidence ↗</Link></div><div className="hero-meta" aria-label="Service areas">{['SIEM / Wazuh', 'Linux security', 'Network review', 'Python automation', 'Incident triage'].map((c) => <span key={c} className="chip">{c}</span>)}</div></div><CurrentFocus /></div></div>
+      <div className="hero">
+        <div className="container hero-grid">
+          <div>
+            <span className="hero-kicker">CYBERSECURITY SERVICES</span>
+            <h1>
+              {site.name}
+              <br />
+              <span className="thin">Practical security, clearly scoped.</span>
+            </h1>
+            <p className="hero-sub">
+              <strong>Stronger systems. Clearer visibility. Actionable security.</strong>{' '}
+              VYRA helps businesses strengthen Linux systems, improve security monitoring and automate log analysis, with practical findings and clear documentation.
+            </p>
+            <div className="btn-row">
+              <Link className="btn btn-primary" href="/services">View services</Link>
+              <Link className="btn btn-ghost" href="/projects">Inspect the evidence ↗</Link>
+            </div>
+            <div className="hero-meta" aria-label="Service areas">
+              {['SIEM / Wazuh', 'Linux security', 'Network review', 'Python automation', 'Incident triage'].map((c) => (
+                <span key={c} className="chip">{c}</span>
+              ))}
+            </div>
+          </div>
+          <CurrentFocus />
+        </div>
 
-      <section aria-labelledby="work-h"><div className="container"><div className="section-head reveal"><p className="eyebrow">Technical work</p><h2 className="h2" id="work-h">Real work. Open to inspection.</h2><p className="lede">Follow the work from overview to public GitHub artifacts: platform source, test definitions, investigation reasoning and environment documentation. Engineering and lab references, not invented client success stories.</p></div><div className="card-grid">{featured.map((p) => <ProjectCard key={p.slug} project={p} />)}</div><div className="btn-row reveal"><Link className="btn btn-ghost" href="/projects">View technical work →</Link></div></div></section>
+      </div>
 
-      <section aria-labelledby="services-h"><div className="container"><div className="section-head reveal"><p className="eyebrow">Services</p><h2 className="h2" id="services-h">Focused help where it matters</h2><p className="lede">Choose focused support for your infrastructure and security operations. Each engagement starts with agreed objectives, authorized access and clear deliverables.</p></div><div className="card-grid">{services.map(([title, body]) => <article className="card reveal" key={title}><p className="eyebrow">VYRA SERVICE</p><h3>{title}</h3><p>{body}</p></article>)}</div><div className="btn-row reveal"><Link className="btn btn-primary" href="/services">Explore service scope →</Link></div></div></section>
+      <section aria-labelledby="services-h">
+        <div className="container">
+          <div className="section-head reveal">
+            <p className="eyebrow">Services</p>
+            <h2 className="h2" id="services-h">Focused help where it matters</h2>
+            <p className="lede">
+              Choose focused support for your infrastructure and security operations. Each engagement starts with agreed objectives, authorized access and clear deliverables.
+            </p>
+          </div>
+          <div className="card-grid">
+            {services.map(([title, body]) => (
+              <article className="card reveal" key={title}>
+                <p className="eyebrow">VYRA SERVICE</p>
+                <h3>{title}</h3>
+                <p>{body}</p>
+              </article>
+            ))}
+          </div>
+          <div className="btn-row reveal">
+            <Link className="btn btn-primary" href="/services">Explore service scope →</Link>
+          </div>
+        </div>
+      </section>
 
-      <section className="section-alt" aria-labelledby="process-h"><div className="container"><div className="section-head reveal"><p className="eyebrow">Process</p><h2 className="h2" id="process-h">A clear security workflow</h2><p className="lede">Define the authorized scope, understand the environment, review evidence, document findings and agree practical next actions. The operational loop below illustrates that approach.</p></div><SocPipeline /></div></section>
+      <section className="section-alt" aria-labelledby="process-h">
+        <div className="container">
+          <div className="section-head reveal">
+            <p className="eyebrow">Process</p>
+            <h2 className="h2" id="process-h">A clear security workflow</h2>
+            <p className="lede">
+              Define the authorized scope, understand the environment, review evidence, document findings and agree practical next actions. The operational loop below illustrates that approach.
+            </p>
+          </div>
+          <SocPipeline />
+        </div>
+      </section>
 
-      <section className="section-alt" aria-labelledby="phil-h"><div className="container"><div className="section-head reveal"><p className="eyebrow">Principles</p><h2 className="h2" id="phil-h">How VYRA approaches security work</h2><p className="lede">A documented, authorization-first process designed to make technical decisions easier to review and act on.</p></div><Philosophy /></div></section>
+      <section aria-labelledby="work-h">
+        <div className="container">
+          <div className="section-head reveal">
+            <p className="eyebrow">Technical work</p>
+            <h2 className="h2" id="work-h">Real work. Open to inspection.</h2>
+            <p className="lede">
+              Follow the work from overview to public GitHub artifacts: platform source, test definitions, investigation reasoning and environment documentation. Engineering and lab references, not invented client success stories.
+            </p>
+          </div>
+          <div className="card-grid">
+            {featured.map((p) => <ProjectCard key={p.slug} project={p} />)}
+          </div>
+          <div className="btn-row reveal">
+            <Link className="btn btn-ghost" href="/projects">View technical work →</Link>
+          </div>
+        </div>
+      </section>
 
-      <section aria-labelledby="know-h"><div className="container"><div className="section-head reveal"><p className="eyebrow">Knowledge base</p><h2 className="h2" id="know-h">Practical security guidance</h2><p className="lede">Notes on threat modeling, hardening, SIEM tuning and safe automation, written to support better security decisions.</p></div><div className="card-grid">{featuredArticles.map((a) => <ArticleCard key={a.slug} article={a} />)}</div><div className="btn-row reveal"><Link className="btn btn-ghost" href="/knowledge">Browse guidance →</Link></div></div></section>
+      <section className="section-alt" aria-labelledby="phil-h">
+        <div className="container">
+          <div className="section-head reveal">
+            <p className="eyebrow">Principles</p>
+            <h2 className="h2" id="phil-h">How VYRA approaches security work</h2>
+            <p className="lede">A documented, authorization-first process designed to make technical decisions easier to review and act on.</p>
+          </div>
+          <Philosophy />
+        </div>
+      </section>
 
-      <section className="section-alt" aria-labelledby="cta-h"><div className="container two-col"><div className="reveal"><p className="eyebrow">Trust</p><h2 className="h2" id="cta-h">Security-minded by design</h2><p className="lede">This site uses a strict content security policy, validated inputs, rate-limited APIs and a public disclosure policy. Security controls and limitations are documented openly.</p><div className="btn-row"><Link className="btn btn-ghost" href="/security">How this site is secured →</Link></div></div><div className="reveal"><p className="eyebrow">Start with scope</p><h2 className="h2">Discuss the work</h2><p className="lede" style={{ marginBottom: '1.25rem' }}>Describe the system, objective and authorization you have. VYRA will use that context to determine whether the requested work is an appropriate fit.</p><div className="btn-row"><Link className="btn btn-primary" href="/contact">Contact VYRA</Link></div></div></div></section>
+      <section aria-labelledby="know-h">
+        <div className="container">
+          <div className="section-head reveal">
+            <p className="eyebrow">Knowledge base</p>
+            <h2 className="h2" id="know-h">Practical security guidance</h2>
+            <p className="lede">Notes on threat modeling, hardening, SIEM tuning and safe automation, written to support better security decisions.</p>
+          </div>
+          <div className="card-grid">
+            {featuredArticles.map((a) => <ArticleCard key={a.slug} article={a} />)}
+          </div>
+          <div className="btn-row reveal">
+            <Link className="btn btn-ghost" href="/knowledge">Browse guidance →</Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="section-alt" aria-labelledby="cta-h">
+        <div className="container two-col">
+          <div className="reveal">
+            <p className="eyebrow">Trust</p>
+            <h2 className="h2" id="cta-h">Security-minded by design</h2>
+            <p className="lede">This site uses a strict content security policy, validated inputs, rate-limited APIs and a public disclosure policy. Security controls and limitations are documented openly.</p>
+            <div className="btn-row"><Link className="btn btn-ghost" href="/security">How this site is secured →</Link></div>
+          </div>
+          <div className="reveal">
+            <p className="eyebrow">Start with scope</p>
+            <h2 className="h2">Discuss the work</h2>
+            <p className="lede" style={{ marginBottom: '1.25rem' }}>Describe the system, objective and authorization you have. VYRA will use that context to determine whether the requested work is an appropriate fit.</p>
+            <div className="btn-row"><Link className="btn btn-primary" href="/contact">Contact VYRA</Link></div>
+          </div>
+        </div>
+      </section>
     </>
   );
 }

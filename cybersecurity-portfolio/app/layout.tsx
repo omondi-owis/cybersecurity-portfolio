@@ -2,7 +2,6 @@ import type { Metadata, Viewport } from 'next';
 import { headers } from 'next/headers';
 import './globals.css';
 import './knowledge-fixes.css';
-import './editorial.css';
 import SiteHeader from '@/components/SiteHeader';
 import SiteFooter from '@/components/SiteFooter';
 import Reveal from '@/components/Reveal';
@@ -15,7 +14,11 @@ export const metadata: Metadata = {
   keywords: ['cybersecurity services', 'SIEM', 'Wazuh', 'Linux security', 'network security review', 'Python log automation', 'incident triage documentation'],
   authors: [{ name: site.name }], creator: site.name,
   robots: { index: true, follow: true }, alternates: { canonical: '/' },
-  openGraph: { type: 'website', siteName: site.name, title: `${site.name} — ${site.title}`, description: 'Practical, authorized cybersecurity support with clear scope and documentation.', url: site.siteUrl, images: [{ url: '/og-image.svg', width: 1200, height: 630, alt: `${site.name} — ${site.title}` }] },
+  openGraph: {
+    type: 'website', siteName: site.name, title: `${site.name} — ${site.title}`,
+    description: 'Practical, authorized cybersecurity support with clear scope and documentation.',
+    url: site.siteUrl, images: [{ url: '/og-image.svg', width: 1200, height: 630, alt: `${site.name} — ${site.title}` }],
+  },
   twitter: { card: 'summary_large_image', title: `${site.name} — ${site.title}`, description: 'Practical, authorized cybersecurity support with clear scope and documentation.', images: ['/og-image.svg'] },
   icons: { icon: [{ url: '/brand-icon/32', sizes: '32x32', type: 'image/png' }, { url: '/brand-icon/192', sizes: '192x192', type: 'image/png' }], apple: [{ url: '/brand-icon/180', sizes: '180x180', type: 'image/png' }] }, manifest: '/manifest.webmanifest',
 };
@@ -33,5 +36,5 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   if (!nonce && process.env.NODE_ENV === 'production') {
     throw new Error('Missing CSP nonce from middleware');
   }
-  return <html lang="en" data-theme="light"><head><link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" /><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet" /></head><body><a className="skip-link" href="#main">Skip to content</a><SiteHeader /><main id="main">{children}</main><SiteFooter /><Reveal /></body></html>;
+  return <html lang="en" data-theme="dark"><head><link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" /><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet" /></head><body><a className="skip-link" href="#main">Skip to content</a><SiteHeader /><main id="main">{children}</main><SiteFooter /><Reveal /></body></html>;
 }
