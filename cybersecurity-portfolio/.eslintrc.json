@@ -1,0 +1,5 @@
+{
+  xtends\: [
+ext/core-web-vitals\, 
+ext/typescript\]
+}
