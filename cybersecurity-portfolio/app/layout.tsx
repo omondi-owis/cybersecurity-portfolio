@@ -32,9 +32,11 @@ export const revalidate = 0;
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   // Reading the trusted middleware header makes nonce-aware rendering explicit.
-  const nonce = (await headers()).get('x-nonce');
+  const requestHeaders = await headers();
+  const nonce = requestHeaders.get('x-nonce');
+  const isAdmin = requestHeaders.get('x-vyra-shell') === 'admin';
   if (!nonce && process.env.NODE_ENV === 'production') {
     throw new Error('Missing CSP nonce from middleware');
   }
-  return <html lang="en" data-theme="dark"><head><link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" /><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet" /></head><body><a className="skip-link" href="#main">Skip to content</a><SiteHeader /><main id="main">{children}</main><SiteFooter /><Reveal /></body></html>;
+  return <html lang="en" data-theme="dark"><head><link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" /><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet" /></head><body><a className="skip-link" href="#main">Skip to content</a>{!isAdmin && <SiteHeader />}<main id="main">{children}</main>{!isAdmin && <SiteFooter />}{!isAdmin && <Reveal />}</body></html>;
 }

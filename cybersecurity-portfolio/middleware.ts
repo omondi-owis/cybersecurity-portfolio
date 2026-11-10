@@ -66,6 +66,9 @@ export function middleware(req: NextRequest) {
   const requestHeaders = new Headers(req.headers);
   requestHeaders.set('Content-Security-Policy', csp);
   requestHeaders.set('x-nonce', nonce);
+  // Trusted rendering hint only, never an authorization decision. Always replace
+  // caller input so public pages cannot select the private layout.
+  requestHeaders.set('x-vyra-shell', pathname === '/admin' || pathname.startsWith('/admin/') ? 'admin' : 'public');
   const response = NextResponse.next({ request: { headers: requestHeaders } });
   responseHeaders.forEach((value, key) => response.headers.set(key, value));
   return response;

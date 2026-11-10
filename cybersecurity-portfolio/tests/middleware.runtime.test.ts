@@ -32,6 +32,15 @@ describe('middleware runtime behavior', () => {
     expect(first.headers.get('cache-control')).toBe('private, no-store, max-age=0, must-revalidate');
   });
 
+  it('chooses the admin shell only for real admin paths and replaces forged hints', () => {
+    for (const path of ['/admin', '/admin/login']) {
+      expect(forwardedRequestHeader(middleware(request(path, { 'x-vyra-shell': 'public' })), 'x-vyra-shell')).toBe('admin');
+    }
+    for (const path of ['/', '/services', '/administrator']) {
+      expect(forwardedRequestHeader(middleware(request(path, { 'x-vyra-shell': 'admin' })), 'x-vyra-shell')).toBe('public');
+    }
+  });
+
   it('keeps API requests nonce-free while preserving the API size guard', () => {
     const normal = middleware(request('/api/contact', { 'content-length': '10240', 'x-nonce': 'forged' }));
     const tooLarge = middleware(request('/api/contact', { 'content-length': '10241' }));
