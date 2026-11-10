@@ -1,5 +1,3 @@
 {
-  xtends\: [
-ext/core-web-vitals\, 
-ext/typescript\]
+  "extends": "next/core-web-vitals"
 }
