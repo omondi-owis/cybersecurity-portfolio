@@ -5,15 +5,24 @@ import { useEffect, useState } from 'react';
 type Theme = 'dark' | 'light';
 
 function currentTheme(): Theme {
-  if (typeof document === 'undefined') return 'dark';
-  return document.documentElement.dataset.theme === 'light' ? 'light' : 'dark';
+  if (typeof document === 'undefined') return 'light';
+  return document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
 }
 
 export default function ThemeToggle() {
-  const [theme, setTheme] = useState<Theme>('dark');
+  const [theme, setTheme] = useState<Theme>('light');
 
   useEffect(() => {
-    setTheme(currentTheme());
+    try {
+      const saved = localStorage.getItem('theme');
+      const next: Theme = saved === 'dark' || saved === 'light' ? saved : 'light';
+      document.documentElement.dataset.theme = next;
+      setTheme(next);
+    } catch {
+      const next = currentTheme();
+      document.documentElement.dataset.theme = next;
+      setTheme(next);
+    }
   }, []);
 
   function toggle() {
