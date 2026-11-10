@@ -1,0 +1,15 @@
+{
+  "id": "/admin",
+  "name": "VYRA Dashboard",
+  "short_name": "VYRA Admin",
+  "description": "Private VYRA enquiry dashboard. Administrator sign-in required.",
+  "start_url": "/admin",
+  "scope": "/admin",
+  "display": "standalone",
+  "background_color": "#05080d",
+  "theme_color": "#05080d",
+  "icons": [
+    { "src": "/brand-icon/192", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "/brand-icon/512", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
