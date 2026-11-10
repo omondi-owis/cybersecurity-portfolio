@@ -1,1 +1,75 @@
-name: Editorial release check\n\non:\n  pull_request:\n    branches: [main]\n  workflow_dispatch:\n\npermissions:\n  contents: read\n\njobs:\n  release-check:\n    runs-on: ubuntu-latest\n    defaults:\n      run:\n        working-directory: cybersecurity-portfolio\n    steps:\n      - uses: actions/checkout@v4\n\n      - uses: actions/setup-node@v4\n        with:\n          node-version: 22.12.0\n          cache: npm\n          cache-dependency-path: cybersecurity-portfolio/package-lock.json\n\n      - name: Install dependencies\n        run: npm ci\n\n      - name: Type check\n        run: npm run typecheck\n\n      - name: Unit tests\n        run: npm run test\n\n      - name: Lint\n        run: npm run lint\n\n      - name: Dependency audit\n        run: npm run audit\n\n      - name: Secret scan\n        run: npm run secret-scan\n\n      - name: Production build\n        run: npm run build\n        env:\n          NEXT_TELEMETRY_DISABLED: '1'\n\n      - name: Mobile browser smoke check\n        env:\n          CI: 'true'\n        run: |\n          npm exec --yes --package=playwright@1.57.0 -- playwright install --with-deps chromium\n          npm run start > /tmp/vyra-next.log 2>&1 &\n          server_pid=$!\n          trap 'kill $server_pid' EXIT\n          for attempt in {1..30}; do curl -fsS http://127.0.0.1:3000/ > /dev/null && break; sleep 1; done\n          cat > /tmp/editorial-mobile-smoke.mjs <<'EOF'\n          import { chromium } from 'playwright';\n          const browser = await chromium.launch({ headless: true });\n          for (const width of [360, 390, 430]) {\n            const page = await browser.newPage({ viewport: { width, height: 900 } });\n            await page.goto('http://127.0.0.1:3000/', { waitUntil: 'networkidle' });\n            const toggle = page.getByRole('button');\n            await toggle.last().click();\n            await page.getByRole('link', { name: 'Services' }).click();\n            if (!page.url().endsWith('/services')) throw new Error(`services navigation failed at ${width}px`);\n            await page.goBack({ waitUntil: 'networkidle' });\n            await toggle.last().click();\n            await page.keyboard.press('Escape');\n            await page.close();\n          }\n          await browser.close();\n          EOF\n          npm exec --yes --package=playwright@1.57.0 -- node /tmp/editorial-mobile-smoke.mjs\n
+name: Editorial release check
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  release-check:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: cybersecurity-portfolio
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.12.0
+          cache: npm
+          cache-dependency-path: cybersecurity-portfolio/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Type check
+        run: npm run typecheck
+
+      - name: Unit tests
+        run: npm run test
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Dependency audit
+        run: npm run audit
+
+      - name: Secret scan
+        run: npm run secret-scan
+
+      - name: Production build
+        run: npm run build
+        env:
+          NEXT_TELEMETRY_DISABLED: '1'
+
+      - name: Mobile browser smoke check
+        env:
+          CI: 'true'
+        run: |
+          npm exec --yes --package=playwright@1.57.0 -- playwright install --with-deps chromium
+          npm run start > /tmp/vyra-next.log 2>&1 &
+          server_pid=$!
+          trap 'kill $server_pid' EXIT
+          for attempt in {1..30}; do curl -fsS http://127.0.0.1:3000/ > /dev/null && break; sleep 1; done
+          cat > /tmp/editorial-mobile-smoke.mjs <<'EOF'
+          import { chromium } from 'playwright';
+          const browser = await chromium.launch({ headless: true });
+          for (const width of [360, 390, 430]) {
+            const page = await browser.newPage({ viewport: { width, height: 900 } });
+            await page.goto('http://127.0.0.1:3000/', { waitUntil: 'networkidle' });
+            const toggle = page.getByRole('button');
+            await toggle.last().click();
+            await page.getByRole('link', { name: 'Services' }).click();
+            if (!page.url().endsWith('/services')) throw new Error(`services navigation failed at ${width}px`);
+            await page.goBack({ waitUntil: 'networkidle' });
+            await toggle.last().click();
+            await page.keyboard.press('Escape');
+            await page.close();
+          }
+          await browser.close();
+          EOF
+          npm exec --yes --package=playwright@1.57.0 -- node /tmp/editorial-mobile-smoke.mjs
