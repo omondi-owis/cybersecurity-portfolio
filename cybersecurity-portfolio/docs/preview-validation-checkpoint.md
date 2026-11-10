@@ -1,8 +1,7 @@
 # Preview validation checkpoint
 
-Configuration refresh requested for the enquiry dashboard feature Preview only.
+Preview-only rate-limit configuration saved and verified in the provider UI. A fresh feature deployment is required.
 
-This checkpoint does not establish successful hosted authentication or persistence.
-Production promotion remains prohibited pending hosted sign-in, enquiry persistence, status update, logout, access control and rollback validation.
+This checkpoint does not establish successful hosted authentication or persistence. Production promotion remains prohibited pending end-to-end validation.
 
 No credentials or environment values are recorded here.
