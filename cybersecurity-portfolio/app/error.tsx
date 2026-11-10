@@ -1,5 +1,7 @@
 'use client';
 
+import Link from 'next/link';
+
 /**
  * 500 page — deliberately generic. Never leaks stack traces,
  * paths, env or query internals to visitors.
@@ -22,9 +24,9 @@ export default function ErrorPage({
         <button className="btn btn-primary" onClick={() => reset()}>
           Try again
         </button>
-        <a className="btn btn-ghost" href="/">
+        <Link className="btn btn-ghost" href="/">
           Go home
-        </a>
+        </Link>
       </div>
     </div>
   );
