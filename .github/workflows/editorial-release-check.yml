@@ -1,13 +1,10 @@
 name: Editorial release check
-
 on:
   pull_request:
     branches: [main]
   workflow_dispatch:
-
 permissions:
   contents: read
-
 jobs:
   release-check:
     runs-on: ubuntu-latest
@@ -16,60 +13,72 @@ jobs:
         working-directory: cybersecurity-portfolio
     steps:
       - uses: actions/checkout@v4
-
       - uses: actions/setup-node@v4
         with:
-          node-version: 22.12.0
+          node-version: 22
           cache: npm
           cache-dependency-path: cybersecurity-portfolio/package-lock.json
-
       - name: Install dependencies
         run: npm ci
-
       - name: Type check
         run: npm run typecheck
-
       - name: Unit tests
         run: npm run test
-
       - name: Lint
         run: npm run lint
-
       - name: Dependency audit
         run: npm run audit
-
       - name: Secret scan
         run: npm run secret-scan
-
       - name: Production build
         run: npm run build
         env:
-          NEXT_TELEMETRY_DISABLED: '1'
-
-      - name: Mobile browser smoke check
-        env:
-          CI: 'true'
+          NEXT_TELEMETRY_DISABLED: 1
+      - name: Responsive production smoke checks
         run: |
-          npm exec --yes --package=playwright@1.57.0 -- playwright install --with-deps chromium
+          qa_dir=$(mktemp -d)
+          npm install --prefix "$qa_dir" --no-package-lock --no-save playwright@1.57.0
+          node "$qa_dir/node_modules/playwright/cli.js" install --with-deps chromium
           npm run start > /tmp/vyra-next.log 2>&1 &
-          server_pid=$!
-          trap 'kill $server_pid' EXIT
-          for attempt in {1..30}; do curl -fsS http://127.0.0.1:3000/ > /dev/null && break; sleep 1; done
-          cat > /tmp/editorial-mobile-smoke.mjs <<'EOF'
-          import { chromium } from 'playwright';
-          const browser = await chromium.launch({ headless: true });
-          for (const width of [360, 390, 430]) {
-            const page = await browser.newPage({ viewport: { width, height: 900 } });
-            await page.goto('http://127.0.0.1:3000/', { waitUntil: 'networkidle' });
-            const toggle = page.getByRole('button');
-            await toggle.last().click();
-            await page.getByRole('link', { name: 'Services' }).click();
-            if (!page.url().endsWith('/services')) throw new Error(`services navigation failed at ${width}px`);
-            await page.goBack({ waitUntil: 'networkidle' });
-            await toggle.last().click();
-            await page.keyboard.press('Escape');
-            await page.close();
-          }
-          await browser.close();
+          for attempt in {1..60}; do curl -fsS http://127.0.0.1:3000/ > /dev/null && break; sleep 1; done
+          cat > "$qa_dir/smoke.cjs" <<EOF
+          const { chromium } = require("playwright");
+          (async () => {
+            const browser = await chromium.launch({ headless: true });
+            for (const width of [360, 390, 430, 1440]) {
+              const page = await browser.newPage({ viewport: { width, height: 900 } });
+              const errors = [];
+              page.on("pageerror", error => errors.push(error.message));
+              for (const route of ["/", "/services", "/about", "/projects", "/knowledge", "/security", "/contact", "/projects/mlinziops"]) {
+                const response = await page.goto("http://127.0.0.1:3000" + route, { waitUntil: "networkidle" });
+                if (response.status() !== 200) throw new Error(route + " status " + response.status());
+                if (await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1)) throw new Error(route + " overflow " + width);
+                const csp = response.headers()["content-security-policy"] || "";
+                if (!csp.includes("nonce-")) throw new Error("Missing nonce CSP");
+              }
+              await page.goto("http://127.0.0.1:3000/", { waitUntil: "networkidle" });
+              if (width < 760) {
+                await page.getByRole("button", {name: "Open menu", exact: true}).click();
+                await page.getByRole("button", {name: "Close menu", exact: true}).waitFor();
+                await page.keyboard.press("Escape");
+                await page.getByRole("button", {name: "Open menu", exact: true}).waitFor();
+                await page.getByRole("button", {name: "Open menu", exact: true}).click();
+                await page.getByRole("link", {name: "Services", exact: true}).filter({visible:true}).first().click();
+                await page.waitForURL("**/services");
+                await page.getByRole("button", {name: "Open menu", exact: true}).waitFor();
+              }
+              const theme = page.getByRole("button", {name: /switch to .* mode/i});
+              await theme.click();
+              const selected = await page.locator("html").getAttribute("data-theme");
+              await page.reload({waitUntil:"networkidle"});
+              if ((await page.locator("html").getAttribute("data-theme")) !== selected) throw new Error("Theme not persistent");
+              const invalid = await page.request.post("http://127.0.0.1:3000/api/contact", {data:{}});
+              if (invalid.status() === 200 || invalid.status() >= 500) throw new Error("Invalid contact rejection: " + invalid.status());
+              if (errors.length) throw new Error(errors.join("; "));
+              console.log("PASS responsive checks at " + width);
+              await page.close();
+            }
+            await browser.close();
+          })().catch(error => { console.error(error); process.exit(1); });
           EOF
-          npm exec --yes --package=playwright@1.57.0 -- node /tmp/editorial-mobile-smoke.mjs
+          node "$qa_dir/smoke.cjs"
