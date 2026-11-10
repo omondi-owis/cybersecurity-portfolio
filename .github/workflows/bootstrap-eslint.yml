@@ -1,0 +1,40 @@
+name: Bootstrap ESLint toolchain
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - cybersecurity-portfolio/package.json
+      - .github/workflows/bootstrap-eslint.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  pin-eslint:
+    if: github.event_name == "workflow_dispatch" || github.event.pull_request.head.ref == "feature/vyra-editorial"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref || github.ref_name }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.12.0
+          cache: npm
+          cache-dependency-path: cybersecurity-portfolio/package-lock.json
+      - name: Pin ESLint and generate lockfile
+        working-directory: cybersecurity-portfolio
+        run: |
+          printf "{\\n  \\"extends\\": [\\"next/core-web-vitals\\", \\"next/typescript\\"]\\n}\\n" > .eslintrc.json
+          npm pkg set scripts.lint="eslint ."
+          npm install --save-dev --save-exact eslint@8.57.1 eslint-config-next@15.5.29
+      - name: Commit generated toolchain files
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add cybersecurity-portfolio/package.json cybersecurity-portfolio/package-lock.json cybersecurity-portfolio/.eslintrc.json
+          git diff --cached --quiet || git commit -m "chore: pin ESLint toolchain"
+          git push
