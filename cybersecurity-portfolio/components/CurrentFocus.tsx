@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 const evidence = [
   { label: 'Platform source', detail: 'MlinziOps', href: 'https://github.com/omondi-owis/MlinziOps', external: true },
   { label: 'Investigation report', detail: 'Wazuh port change', href: 'https://github.com/omondi-owis/soc-investigation-wazuh/blob/main/SOC-Investigation-Report-Wazuh-Port-Change.md', external: true },
@@ -55,7 +57,7 @@ export default function CurrentFocus() {
 
       <div className="evidence-console__footer">
         <span>Public source and report — not a live dashboard.</span>
-        <a href="/projects">View project references <span aria-hidden="true">→</span></a>
+        <Link href="/projects">View project references <span aria-hidden="true">→</span></Link>
       </div>
     </section>
   );
