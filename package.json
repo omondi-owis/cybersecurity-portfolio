@@ -1,0 +1,10 @@
+{
+  "name": "vyra-preview-wrapper",
+  "private": true,
+  "scripts": {
+    "build": "cd cybersecurity-portfolio && npm run build"
+  },
+  "dependencies": {
+    "next": "15.5.29"
+  }
+}
