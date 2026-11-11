@@ -42,19 +42,13 @@ export default function Login() {
   return (
     <div className="va-login">
       <section className="va-login-story" aria-labelledby="workspace-title">
-        <p className="va-kicker">VYRA BUSINESS DESK</p>
-        <h1 id="workspace-title">Your enquiries.<br />One clear view.</h1>
-        <p className="va-intro">A focused workspace for the conversations that start on your website. Review, respond and keep track of what comes next.</p>
-        <div className="va-login-points">
-          <div className="va-login-point"><span aria-hidden="true">01</span><div><strong>Private by design</strong>Customer messages stay behind administrator sign-in.</div></div>
-          <div className="va-login-point"><span aria-hidden="true">02</span><div><strong>Simple follow-through</strong>Keep new, replied and closed enquiries organised.</div></div>
-          <div className="va-login-point"><span aria-hidden="true">03</span><div><strong>No password to remember</strong>Use a one-time code sent to your configured inbox.</div></div>
-        </div>
+        <p className="va-kicker">VYRA ADMIN</p>
+        <h1 id="workspace-title">Enquiry dashboard</h1>
       </section>
       <section className="va-login-card" aria-labelledby="signin-title">
         <div className="va-lock" aria-hidden="true">◇</div>
         <h2 id="signin-title">{requested ? 'Check your inbox' : 'Welcome back'}</h2>
-        <p>{requested ? 'Enter the latest six-digit code to open your workspace.' : 'Sign in to your private enquiry dashboard. Codes go only to the configured administrator inbox.'}</p>
+        <p>{requested ? 'Enter the six-digit code from your admin inbox.' : 'Use a one-time code to sign in.'}</p>
         {!requested ? <button className="va-button va-button-primary" type="button" onClick={() => void requestCode()} disabled={busy}>{busy ? 'Sending…' : 'Send sign-in code'}</button> : (
           <form onSubmit={verify}>
             <label htmlFor="admin-code">One-time code</label>
@@ -64,7 +58,7 @@ export default function Login() {
           </form>
         )}
         {message && <p className="va-login-feedback" role="status">{message}</p>}
-        <p className="va-login-help" id="code-help">Codes expire after 10 minutes. Enter your code in the same browser that requested it. Never share it.</p>
+        {requested && <p className="va-login-help" id="code-help">Expires in 10 minutes. Use this browser.</p>}
       </section>
     </div>
   );
