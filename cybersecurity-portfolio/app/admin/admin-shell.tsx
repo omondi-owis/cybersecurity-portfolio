@@ -16,14 +16,14 @@ export default function AdminShell({ children }: { children: React.ReactNode }) 
           <a className="va-nav-active" href={login ? '/admin/login' : '/admin'} aria-current="page"><span aria-hidden="true">▤</span> {login ? 'Administrator access' : 'Enquiries'}</a>
         </nav>
         <div className="va-sidebar-bottom">
-          <div className="va-preview-label"><span /> Preview</div>
+          <div className="va-preview-label"><span /> Private workspace</div>
           <a href="/" target="_blank" rel="noopener noreferrer">View public website <span aria-hidden="true">↗</span></a>
         </div>
       </aside>
       <div className="va-workspace">
         <header className="va-topbar"><span>VYRA <span className="va-separator">/</span> {login ? 'Sign in' : 'Enquiries'}</span><span className="va-private-label">Administrator only</span></header>
         <div className="va-content">{children}</div>
-        <footer className="va-footer"><span>VYRA Admin</span><span>Preview</span></footer>
+        <footer className="va-footer"><span>VYRA Admin</span><span>Administrator only</span></footer>
       </div>
     </div>
   );

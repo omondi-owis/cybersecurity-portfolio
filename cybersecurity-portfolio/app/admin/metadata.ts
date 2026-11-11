@@ -9,4 +9,3 @@ export const metadata: Metadata = {
   appleWebApp: { capable: true, title: 'VYRA Dashboard' },
   robots: { index: false, follow: false, noarchive: true, nosnippet: true },
 };
-
