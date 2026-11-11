@@ -1,6 +1,0 @@
-{
-  "framework": "nextjs",
-  "installCommand": "npm install --ignore-scripts && cd cybersecurity-portfolio && npm ci",
-  "buildCommand": "cd cybersecurity-portfolio && npm run build",
-  "outputDirectory": "cybersecurity-portfolio/.next"
-}
