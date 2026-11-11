@@ -87,14 +87,14 @@ export default function Dashboard() {
   return (
     <section aria-labelledby="enquiries-title">
       <div className="va-page-head">
-        <div><p className="va-kicker">PRIVATE ENQUIRY INBOX</p><h1 id="enquiries-title">Every conversation,<br />in focus.</h1><p className="va-intro">Review incoming requests and keep follow-up organised. Reply through your email app, then update the enquiry status here.</p></div>
+        <div><h1 id="enquiries-title">Enquiries</h1></div>
         <div className="va-head-actions"><button className="va-button va-button-subtle" type="button" onClick={() => void load()} disabled={busy || loading}>{loading ? 'Refreshing…' : 'Refresh'}</button><button className="va-button" type="button" onClick={() => void signOut()} disabled={busy}>Sign out</button></div>
       </div>
       {message && <div className="va-notice" role="alert">{message}<a href="/admin/login">Back to sign in</a></div>}
       <div className="va-summary" aria-label="Loaded enquiry summary">
-        <div className="va-stat"><span className="va-stat-label">Needs attention</span><strong>{unavailable ? '—' : count('new')}</strong><small>New enquiries</small></div>
-        <div className="va-stat"><span className="va-stat-label">Responded</span><strong>{unavailable ? '—' : count('replied')}</strong><small>Marked as replied</small></div>
-        <div className="va-stat"><span className="va-stat-label">Resolved</span><strong>{unavailable ? '—' : count('closed')}</strong><small>Closed enquiries</small></div>
+        <div className="va-stat"><span className="va-stat-label">New</span><strong>{unavailable ? '—' : count('new')}</strong></div>
+        <div className="va-stat"><span className="va-stat-label">Replied</span><strong>{unavailable ? '—' : count('replied')}</strong></div>
+        <div className="va-stat"><span className="va-stat-label">Closed</span><strong>{unavailable ? '—' : count('closed')}</strong></div>
       </div>
       <div className="va-toolbar">
         <div className="va-filters" role="group" aria-label="Filter enquiries by status">{filters.map(option => <button key={option.value} className="va-filter" type="button" aria-pressed={filter === option.value} onClick={() => setFilter(option.value)}>{option.label}</button>)}</div>
@@ -102,7 +102,7 @@ export default function Dashboard() {
       </div>
       <p className="va-screen-reader" role="status">{loading ? 'Loading enquiries' : loaded ? `${visible.length} matching enquiries` : 'Enquiries unavailable'}</p>
       <div className="va-list" aria-busy={loading || busy}>
-        {loading ? <div className="va-empty"><div className="va-empty-mark" aria-hidden="true">···</div><h2>Loading your inbox</h2><p>Checking the latest saved enquiries.</p></div> : loaded && visible.length === 0 ? <div className="va-empty"><div className="va-empty-mark" aria-hidden="true">▤</div><h2>{items.length ? 'No matching enquiries' : 'A clear inbox'}</h2><p>{items.length ? 'Try another status or search term.' : 'New website enquiries will appear here.'}</p>{items.length > 0 && <button className="va-button va-button-subtle" type="button" onClick={() => { setFilter('all'); setSearch(''); }}>Clear filters</button>}</div> : visible.map(enquiry => (
+        {loading ? <div className="va-empty"><div className="va-empty-mark" aria-hidden="true">···</div><h2>Loading your inbox</h2><p>Checking the latest saved enquiries.</p></div> : loaded && visible.length === 0 ? <div className="va-empty"><div className="va-empty-mark" aria-hidden="true">▤</div><h2>{items.length ? 'No matching enquiries' : 'No enquiries yet'}</h2><p>{items.length ? 'Try another status or search term.' : 'New website enquiries will appear here.'}</p>{items.length > 0 && <button className="va-button va-button-subtle" type="button" onClick={() => { setFilter('all'); setSearch(''); }}>Clear filters</button>}</div> : visible.map(enquiry => (
           <article className="va-enquiry" key={enquiry.id}>
             <div className="va-enquiry-top"><div><h2>{enquiry.subject}</h2><p className="va-sender">{enquiry.name} · <a href={`mailto:${encodeURIComponent(enquiry.email)}`}>{enquiry.email}</a></p></div><span className={`va-status va-status-${enquiry.status}`}>{enquiry.status}</span></div>
             <p className="va-message">{enquiry.message}</p>
@@ -117,7 +117,7 @@ export default function Dashboard() {
           </article>
         ))}
       </div>
-      <p className="va-note">Showing up to the latest 100 enquiries. Counts and search cover this loaded set only. Enquiries are retained for no more than 90 days. Opening an email draft does not send it or mark the enquiry as replied.</p>
+      <p className="va-note">Latest 100 enquiries · Search and counts cover this list · 90-day retention</p>
     </section>
   );
 }
