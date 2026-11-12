@@ -17,7 +17,7 @@ export const site = {
   email: '',
   github: 'https://github.com/omondi-owis',
   linkedin: '',
-  instagram: '',
+  instagram: 'https://www.instagram.com/vyra_security/',
   youtube: '',
   tiktok: '',
   whatsapp: '',
